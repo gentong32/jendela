@@ -140,23 +140,41 @@
               <!-- <p>Profil Objek Kebudayaan, Warisan Budaya Benda dan Warisan Budaya Tak Benda di 514 Kab/Kota.</p>-->
 	<!-- search -->
 			  <div class="location-search-area">
-                <form class="location-search-area__search-form">
+            
                   <div class="d-sm-flex align-items-center">
                     <div class="d-sm-flex">
                       <div class="location-search-area__dropdown">
                         <div class="location-heading">
                           <label>Lokasi</label>
                         </div>
-						  <select name="" id="" class="nice-select focus-reset border-0">
+						<!-- <select id="editable-select" class="nice-select focus-reset border-0">
+							<option>Alfa Romeo</option>
+							<option>Audi</option>
+							<option>BMW</option>
+							<option>Citroen</option>
+						</select> -->
+						<!-- <input type="text" name="example" list="exampleList">
+						<datalist id="exampleList" style="border:0">
+							
+							<option value="Bali">
+							<option value="Banten">
+						</datalist> -->
+						<input placeholder="Semua lokasi" list="suggestionList" id="answerInput" class="form-control" >
+						<datalist id="suggestionList">
+							<option data-value="41">The answer 1</option>
+							<option data-value="42">The answer 2</option>
+						</datalist>
+						
+						  <!-- <select name="" id="editable-select" class="nice-select focus-reset border-0">
                           <option value="">Seluruh Lokasi</option>
-						  <!--Value ini copas dari warisanbudaya-->
-                          <option  value="060000">Prov. Aceh, Indonesia</option>
-						  <option  value="220000">Prov. Bali, Indonesia</option>
-						  <option  value="280000">Prov. Banten, Indonesia</option>
-						  <option  value="260000">Prov. Bengkulu, Indonesia</option>
-						  <option  value="040000">Prov. D.I. Yogyakarta, Indonesia</option>
-						  <option  value="010000">Prov. D.K.I. Jakarta, Indonesia</option>
-						  <option  value="300000">Prov. Gorontalo, Indonesia</option>
+						  
+                          <option  value="060000">Aceh, Indonesia</option>
+						  <option  value="220000">Bali, Indonesia</option>
+						  <option  value="280000">Banten, Indonesia</option>
+						  <option  value="260000">Bengkulu, Indonesia</option>
+						  <option  value="040000">D.I. Yogyakarta, Indonesia</option>
+						  <option  value="010000">D.K.I. Jakarta, Indonesia</option>
+						  <option  value="300000">Gorontalo, Indonesia</option>
 						  <option  value="100000">Prov. Jambi, Indonesia</option>
 						  <option  value="020000">Prov. Jawa Barat, Indonesia</option>
 						  <option  value="030000">Prov. Jawa Tengah, Indonesia</option>
@@ -698,20 +716,21 @@
 						  <option  value="076500">Kota Sibolga, Prov. Sumatera Utara</option>
 						  <option  value="076400">Kota Tanjung Balai, Prov. Sumatera Utara</option>
 						  <option  value="076200">Kota Tebing Tinggi, Prov. Sumatera Utara</option>
-						  </select><span class="focus"></span>
+						  </select><span class="focus"></span> -->
                       </div>
-                      <div class="location-type__input">
+                      <div class="location-type__input" style="margin-right:5px">
                         <div class="location-type">
                           <label>Nama Objek</label>
-                          <input type="text" class="form-control" name="type" id="type" placeholder="Ketikkan nama objek">
-                        </div>
+                          <input type="text" class="form-control" name="isearch" id="isearch" placeholder="Ketikkan nama objek">
+							<div class="position-absolute invisible" id="form2_complete" style="z-index: 99;"></div>
+						</div>
                       </div>
                     </div>
                     <div class="location-search-area__search-btn">
-                      <button class="btn btn-style-03 btn--search">Cari</button>
+                      <button onclick="return cariobjek()" class="btn btn-style-03 btn--search">Cari</button>
                     </div>
                   </div>
-                </form>
+              
               </div>
     <!--end search-->
             </div>
@@ -929,6 +948,7 @@
 	
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="fa fa-arrow-up"></i></a>
 	
+  	
   <!-- Vendor Scripts -->
   
   
@@ -941,6 +961,7 @@
   <script src="<?=base_url()?>/template/plugins/aos/aos.min.js"></script>
   <script src="<?=base_url()?>/template/plugins/slick/slick.min.js"></script>
   <!-- <script src="../../../porjoton.netlify.app/mekanic/js/waypoints.min.js"></script> -->
+  
   <script src="<?=base_url()?>/template/plugins/counter-up/jquery.counterup.min.js"></script>
   <script src="<?=base_url()?>/template/plugins/isotope/isotope.pkgd.min.js"></script>
   <script src="<?=base_url()?>/template/plugins/isotope/packery.pkgd.min.js"></script>
@@ -948,7 +969,39 @@
   <script src="<?=base_url()?>/template/plugins/menu/menu.js"></script>
   <!-- Activation Script -->
   <script src="<?=base_url()?>/template/js/custom.js"></script>
+  <script src="<?=base_url()?>/template/js/autocomplete.js"></script>
+  <!-- Editable Select Jquery tapi lambat kalau data banyak -->
+  <!-- <script src="template/js/jquery-select.min.js"></script>
+  <link href="/template/css/jquery-select.min.css" rel="stylesheet"> -->
+  
   
 </body>
 
 </html>
+
+<script>
+	$(document).on('change input', '#isearch', function () {
+		$.ajax({
+			type: 'GET',
+			data: {kunci: $('#isearch').val()},
+			dataType: 'json',
+			cache: false,
+			url: '<?=base_url()?>/home/get_autocomplete',
+			success: function (result) {
+				autocomplete_example2 = new Array();
+				var jdata = 0;
+				$.each(result, function (i, result) {
+					jdata++;
+					autocomplete_example2[jdata] = result.value;
+				});
+
+				set_autocomplete('isearch', 'form2_complete', autocomplete_example2, start_at_letters = 1);
+			}
+		});
+	});
+
+	function cariobjek() {
+		var cleanString = $('#isearch').val().replace(/[|&;$%@"<>()+,]/g, "");
+		window.open('<?=base_url()?>/home/cari/' + cleanString, '_self');
+	}
+</script>
