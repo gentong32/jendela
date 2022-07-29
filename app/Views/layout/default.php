@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="<?=base_url()?>/template/plugins/nice-select/nice-select.min.css">
   <link rel="stylesheet" href="<?=base_url()?>/template/plugins/slick/slick.min.css">
   <!-- Vendor stylesheets  -->
-  <link rel="stylesheet" href="<?=base_url()?>/template/css/main.css?ver=1.1">
+  <link rel="stylesheet" href="<?=base_url()?>/template/css/main.css?ver=1.2">
   <!-- Custom stylesheet -->
 </head>
 
@@ -703,7 +703,7 @@
                       <div class="location-type__input">
                         <div class="location-type">
                           <label>Nama Objek</label>
-                          <input type="text" class="form-control" name="type" id="type" placeholder="Ketikkan nama objek di sini">
+                          <input type="text" class="form-control" name="type" id="type" placeholder="Ketikkan nama objek">
                         </div>
                       </div>
                     </div>
@@ -821,7 +821,7 @@
 	  
     <!--Content Area-4-->
     <div class="area-20 position-relative">
-      <div class="image-group">
+      <!-- <div class="image-group">
         <div class="image-1 d-none d-xl-block hero-image-group-l1">
           <div>
 			<img src="<?=base_url()?>/template/image/landing/pin-kiri.png" alt="">
@@ -852,7 +852,7 @@
 		  </div>
         </div>
 		
-      </div>
+      </div> -->
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-xl-6 col-lg-8 col-md-10" data-aos="fade-down" data-aos-duration="800" data-aos-once="true">
@@ -930,13 +930,17 @@
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="fa fa-arrow-up"></i></a>
 	
   <!-- Vendor Scripts -->
+  
+  
   <script src="<?=base_url()?>/template/js/vendor.min.js"></script>
   <!-- Plugin's Scripts -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js"></script>
   <script src="<?=base_url()?>/template/plugins/fancybox/jquery.fancybox.min.js"></script>
   <script src="<?=base_url()?>/template/plugins/nice-select/jquery.nice-select.min.js"></script>
   <script src="<?=base_url()?>/template/plugins/aos/aos.min.js"></script>
   <script src="<?=base_url()?>/template/plugins/slick/slick.min.js"></script>
-  <script src="../../../porjoton.netlify.app/mekanic/js/waypoints.min.js"></script>
+  <!-- <script src="../../../porjoton.netlify.app/mekanic/js/waypoints.min.js"></script> -->
   <script src="<?=base_url()?>/template/plugins/counter-up/jquery.counterup.min.js"></script>
   <script src="<?=base_url()?>/template/plugins/isotope/isotope.pkgd.min.js"></script>
   <script src="<?=base_url()?>/template/plugins/isotope/packery.pkgd.min.js"></script>
@@ -944,6 +948,7 @@
   <script src="<?=base_url()?>/template/plugins/menu/menu.js"></script>
   <!-- Activation Script -->
   <script src="<?=base_url()?>/template/js/custom.js"></script>
+  
 </body>
 
 </html>
