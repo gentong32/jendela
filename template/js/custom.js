@@ -1,7 +1,7 @@
 "use strict";
 $(document).ready(function() {
 
-    $("select").niceSelect();
+    // $("select").niceSelect();
 
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         AOS Animation Activation

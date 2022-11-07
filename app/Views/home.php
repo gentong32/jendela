@@ -1,17 +1,14 @@
 <?= $this->extend('layout/default') ?>
 
 <?= $this->section('titel') ?>
-<title>Home &mdash; Budaya Kita</title>
+<title>Jendela Data Pendidikan</title>
 <?= $this->endSection() ?>
 
-<?= $this->section('content') ?>
-    <section class="section">
-        <div class="section-header">
-        <h1>Dashboard</h1>
-        </div>
+<?= $this->section('section') ?>
+<section class="about-section section-padding">
+    <div class="container">
+        Selamat Datang di Jendela Data Pendidikan
+    </div>
+</section>
 
-        <div class="section-body">
-            
-        </div>
-    </section>
 <?= $this->endSection() ?>
