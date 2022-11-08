@@ -120,7 +120,7 @@ class DataModelJendela extends Model
     public function getkoordinatgeo($kodewilayah)
     {
         $baris = 0;
-        $myFile = base_url()."/geojson/".$kodewilayah.".geojson";
+        $myFile = base_url()."geojson/".$kodewilayah.".geojson";
         $line = file_get_contents($myFile);//file in to an array
         
         $line = str_replace("[ [ [","[",$line);
