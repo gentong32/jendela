@@ -13,6 +13,7 @@
         <link rel="icon" type="image/png" href="<?=site_url().'template/images/logotutwuri.png';?>">
 
         <link href="<?=site_url().'template/css';?>/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
         <link href="<?=site_url().'template/css';?>/gentongstyle.css?v1.3" rel="stylesheet">
         <link href="<?=base_url()?>/leaflet/leaflet.css?v1.0" rel="stylesheet" >
     </head>
@@ -30,7 +31,7 @@
                         <a class="nav-link disabled" href="#">HOME</a>
                     </li>
                     <!-- <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Menu</a>
+                        <a class="nav-link" href="#" onclick="showinputkota();" tabindex="-1" aria-disabled="true">Ganti Kota</a>
                     </li> -->
                 </ul>
             </div>
@@ -65,6 +66,8 @@
         <script src="<?=site_url().'template/js/';?>jquery.min.js"></script>
         <script src="<?=site_url().'template/js/';?>bootstrap.min.js"></script>
         <script src="<?=site_url().'template/js/';?>bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
         <script src="<?=base_url()?>/leaflet/leaflet.js?v1.0"></script>
         <?=$this->renderSection('scriptpeta')?>
 

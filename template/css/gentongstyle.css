@@ -135,3 +135,38 @@
     background-color: rgb(222, 249, 214);
     border: 1px solid rgb(198, 223, 182);
 }
+
+.btn-dua {
+    padding:0px 3px 0px 3px;
+    margin-left: 1px;
+    margin-bottom: 1px;
+    border-radius: 2px;
+    background-color: rgb(229, 246, 240);
+    border: 1px solid rgb(218, 219, 217);
+    height: 36px;
+    width: 36px;
+}
+
+.btn-dua:hover {
+    margin-left: 1px;
+    margin-bottom: 1px;
+    background-color: rgb(222, 249, 214);
+    border: 1px solid rgb(198, 223, 182);
+}
+
+.ckota {
+    margin-top: 5px;
+    margin-left: 0px;
+    max-width: 330px;
+}
+
+.ui-menu .ui-menu-item-wrapper {
+    color: #303030;
+    background-color: #fff;
+}        
+
+.ui-menu .ui-menu-item-wrapper:hover {
+    color: #303030;
+    background-color: red;
+    border: #fff 1px solid;
+} 

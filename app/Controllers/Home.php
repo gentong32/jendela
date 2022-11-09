@@ -62,4 +62,41 @@ class Home extends BaseController
         
         echo view('profil', $data);
     }
+
+    public function getAuto()
+    {		
+		// $request = service('request');
+		// $postData = $request->getPost();
+  
+		$response = array();
+        $response['token'] = csrf_hash();
+
+		$data = array();
+  
+		// if(isset($postData['search']))
+		{
+		   	$search = 'semarang';//$postData['search'];
+			$wer = "nama like '%".$search."%'";
+			
+			$query1 = "select top 10 nama, kode_wilayah from 
+			Referensi.ref.mst_wilayah where ".$wer;
+
+			$query = $this->db->query($query1);
+			$hasil = $query->getResult();
+			$data = array();
+
+			foreach ($hasil as $row){
+				$data[] = array(
+					"value" => $row->kode_wilayah,
+					"label" => $row->nama
+				);
+			}
+		}
+  
+		$response['data'] = $data;
+  
+		return $this->response->setJSON($response);
+  
+    }
+
 }

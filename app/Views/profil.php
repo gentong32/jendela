@@ -13,6 +13,8 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
     <div class="kontainer">
         <div class="row">
 
+        <input type="hidden" class="txt_csrfname" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
+
             <div class="col-lg-6 col-md-6">
                 <div style="height:300px;width:100%;" id="maps"></div>
             </div>
@@ -20,6 +22,18 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
             <div class="col-lg-6 col-md-6">
                 <div class="custom-text-block">
                     <h2 class="mb-0"><?=$datakabupaten['nama']?></h2>
+                    <div id="dkota" class="ckota">
+                        <div class="inline">
+                        Ganti Kota:
+                        </div>   
+                        <div class="inline" style="width:200px">
+                            <input type="text" class="form-control" name="isearch" id="isearch" placeholder="Nama kota/kabupaten">
+                            <div class="position-absolute" id="form2_complete" style="z-index: 99;"></div>
+                        </div>
+                        <div onclick="return gantikota()" class="inline">
+                            <button class="btn-dua">Ok</button>
+                        </div>
+                    </div>
 
                     <p class="text-muted mb-lg-4 mb-md-4"></p>
                         <table class="table table-bordered">
@@ -1052,9 +1066,47 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
 
 <?= $this->section('scriptpeta') ?>
 <script>
-    var latlngs = [];
+    $(document).ready(function() {
+        $( "#isearch" ).autocomplete({
 
-var map = L
+        source: function( request, response ) {
+            // Fetch data
+            var csrfName = $('.txt_csrfname').attr('name'); // CSRF Token name
+            var csrfHash = $('.txt_csrfname').val(); // CSRF hash
+
+            $.ajax({
+                url: "<?=site_url('home/getAuto')?>",
+                type: 'post',
+                dataType: "json",
+                data: {
+                search: request.term,
+                [csrfName]: csrfHash
+                },
+                success: function( data ) {
+                // Update CSRF Token
+                $('.txt_csrfname').val(data.token);
+                response( data.data );
+                }
+            });
+        },
+        select: function (event, ui) {
+            // Set selection
+            $('#isearch').val(ui.item.label); // display the selected text
+            kodewilayah = ui.item.value; // save selected id to input
+            return false;
+        },
+        focus: function(event, ui){
+            $( "#isearch" ).val( ui.item.label );
+            kodewilayah = ui.item.value;
+            return false;
+        },
+        }); 
+    });
+
+    var latlngs = [];
+    var kodewilayah;
+
+    var map = L
     .map('maps')
     .setView({
         lat: <?=$bujur?>, lon:<?=$lintang?>}, 10); 
@@ -1076,12 +1128,15 @@ var map = L
 					peta.setStyle(style);
 				}
 			}).addTo(map);
-            map.fitBounds(geoJSON.getBounds());
 		});
         // L.marker({lat: <?php //$datakabupaten['lintang']?>, lon:<?php //$datakabupaten['bujur']?>}).bindPopup('<?php //$datakabupaten['nama']?>').addTo(map);
         // L.polygon(latlngs, {color: 'red'}).addTo(map);
 
-        
+    function gantikota() {
+        var cleanString =kodewilayah;
+        // alert (cleanString);
+        window.open('<?=site_url()?>/home/profil/' + cleanString, '_self');
+    }
 </script>
 
 <?= $this->endSection() ?>
