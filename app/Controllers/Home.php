@@ -79,7 +79,7 @@ class Home extends BaseController
 			$wer = "nama like '%".$search."%'";
 			
 			$query1 = "select top 10 nama, kode_wilayah from 
-			Referensi.ref.mst_wilayah where ".$wer;
+			Referensi.ref.mst_wilayah where id_level_wilayah=2 AND mst_kode_wilayah<>350000  AND ".$wer; 
 
 			$query = $this->db->query($query1);
 			$hasil = $query->getResult();

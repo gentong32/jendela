@@ -1135,7 +1135,7 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
     function gantikota() {
         var cleanString =kodewilayah;
         // alert (cleanString);
-        window.open('<?=site_url()?>/home/profil/' + cleanString, '_self');
+        window.open('<?=site_url()?>home/profil/' + cleanString, '_self');
     }
 </script>
 
