@@ -27,11 +27,11 @@
             <div class="menu1">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">HOME</a>
+                        <a class="nav-link disabled" href="#">HOME</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Menu</a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </header>
