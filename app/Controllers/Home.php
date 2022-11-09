@@ -65,17 +65,17 @@ class Home extends BaseController
 
     public function getAuto()
     {		
-		// $request = service('request');
-		// $postData = $request->getPost();
+		$request = service('request');
+		$postData = $request->getPost();
   
 		$response = array();
         $response['token'] = csrf_hash();
 
 		$data = array();
   
-		// if(isset($postData['search']))
+		if(isset($postData['search']))
 		{
-		   	$search = 'semarang';//$postData['search'];
+		   	$search = $postData['search'];
 			$wer = "nama like '%".$search."%'";
 			
 			$query1 = "select top 10 nama, kode_wilayah from 
