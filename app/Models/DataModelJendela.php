@@ -121,7 +121,12 @@ class DataModelJendela extends Model
     {
         $baris = 0;
         $myFile = base_url()."/geojson/".$kodewilayah.".geojson";
-        $line = file_get_contents($myFile);//file in to an array
+        $hasil=[];
+
+        if($line = @file_get_contents($myFile))
+            $hasil['status'] = "Sukses";
+        else
+            $hasil['status'] = "Gagal menampilkan peta.";
         
         $line = str_replace("[ [ [","[",$line);
         $line = str_replace("[ [","[",$line);
@@ -175,7 +180,7 @@ class DataModelJendela extends Model
         $bujurtengah=($bujurkiri+$bujurkanan)/2;
         $lintangtengah=($lintangatas+$lintangbawah)/2;
 
-        $hasil=[];
+        
 
         $hasil['bujur'] = $bujurtengah;
         $hasil['lintang'] = $lintangtengah;

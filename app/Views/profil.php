@@ -15,6 +15,11 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
 
         <input type="hidden" class="txt_csrfname" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
 
+            <?php if ($status_peta!="Sukses")
+            {?>
+               <div><span style="color:red;"><?=$status_peta."</span><br>"?>
+               </div> 
+            <?php } ?>
             <div class="col-lg-6 col-md-6">
                 <div style="height:300px;width:100%;" id="maps"></div>
             </div>

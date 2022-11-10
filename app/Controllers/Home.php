@@ -55,6 +55,7 @@ class Home extends BaseController
         $data['bujur'] = $getkoordinat['bujur'];
         $data['akreditasi'] = $get_sekolah_akreditasi;
         $data['status_sekolah'] = $get_sekolah_status;
+        $data['status_peta'] = $getkoordinat['status'];
         $data['datakabupaten'] = $datakebupaten;
         $data['datakebudayaan'] = $datakebudayaan;
         $data['kodewilayah'] = $kodewilayah;
