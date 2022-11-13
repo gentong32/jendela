@@ -1,6 +1,8 @@
 .header1 {
     background-color: rgb(244, 255, 244) !important;
     padding:5px;
+    padding-top:15px;
+    padding-bottom:15px;
     font-size: 16px;
 }
 
@@ -170,3 +172,8 @@
     background-color: red;
     border: #fff 1px solid;
 } 
+
+.tabeltotal td
+{
+    line-height:18px;
+}

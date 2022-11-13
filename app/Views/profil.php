@@ -41,36 +41,36 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                     </div>
 
                     <p class="text-muted mb-lg-4 mb-md-4"></p>
-                        <table class="table table-bordered">
+                        <table class="tabeltotal">
                             <tr>
-                                <td width="160px">
+                                <td width="130px">
                                     Total Kecamatan
                                 </td>
-                                <td><?=number_format($datakabupaten['jumlah_kecamatan'],0,",",".");?></td>
+                                <td>: <?=number_format($datakabupaten['jumlah_kecamatan'],0,",",".");?></td>
                             </tr>
                             <tr>
                                 <td>
                                 Total Kelurahan
                                 </td>
-                                <td><?=number_format($datakabupaten['jumlah_kelurahan'],0,",",".");?></td>
+                                <td>: <?=number_format($datakabupaten['jumlah_kelurahan'],0,",",".");?></td>
                             </tr>
                             <tr>
                                 <td>
                                 Total Sekolah
                                 </td>
-                                <td><?=number_format($datakabupaten['jumlah_sekolah'],0,",",".");?></td>
+                                <td>: <?=number_format($datakabupaten['jumlah_sekolah'],0,",",".");?></td>
                             </tr>
                             <tr>
                                 <td>
                                 Total Siswa
                                 </td>
-                                <td><?=number_format($datakabupaten['jumlah_siswa'],0,",",".");?></td>
+                                <td>: <?=number_format($datakabupaten['jumlah_siswa'],0,",",".");?></td>
                             </tr>
                             <tr>
                                 <td>
                                 Total Guru
                                 </td>
-                                <td> <?=number_format($datakabupaten['jumlah_guru'],0,",",".");?></td>
+                                <td>: <?=number_format($datakabupaten['jumlah_guru'],0,",",".");?></td>
                             </tr>
                         </table>
 

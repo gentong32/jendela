@@ -22,8 +22,8 @@
 
         <header>
             <div class="header1">
-                <img height="60" width="60" src="<?=site_url().'template/images/';?>logotutwuri.png" alt="Pusdatin">
-                <img height="50" src="<?=site_url().'template/images/';?>logoteks.png?v1.0" alt="Pusdatin">
+                <img height="70" width="70" src="<?=site_url().'template/images/';?>logotutwuri.png" alt="Pusdatin">
+                <img height="60" src="<?=site_url().'template/images/';?>logoteks.png?v1.0" alt="Pusdatin">
             </div>
             <div class="menu1">
                 <ul class="nav">
