@@ -61,7 +61,7 @@ class Home extends BaseController
         $data['kodewilayah'] = $kodewilayah;
         // $data['namakota'] = "Tangerang Selatan";
         
-        echo view('profil', $data);
+        echo view('profil_layout2', $data);
     }
 
     public function getAuto()

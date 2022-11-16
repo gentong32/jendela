@@ -14,8 +14,8 @@
 
         <link href="<?=site_url().'template/css';?>/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-        <link href="<?=site_url().'template/css';?>/gentongstyle.css?v1.4" rel="stylesheet">
         <link href="<?=base_url()?>/leaflet/leaflet.css?v1.0" rel="stylesheet" >
+        <link href="<?=site_url().'template/css';?>/gentongstyle.css?v1.4" rel="stylesheet">
     </head>
     
     <body>
@@ -37,7 +37,7 @@
             </div>
         </header>
 
-        <main>
+        <main style="margin-top:20px; margin-bottom:20px; margin-left:auto; margin-right:auto; max-width:90%;">
 
             <?=$this->renderSection('section')?>
 
