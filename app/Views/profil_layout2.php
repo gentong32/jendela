@@ -24,7 +24,7 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
             </div>
             <?php } ?>
 
-            <div class="inline vert-top" style="margin-right:50px;min-width:500px;">
+            <div class="inline vert-top" style="margin-right:50px;">
                 <h2 class="mb-0"><?=$datakabupaten['nama']?></h2>
                 <div id="dkota" class="ckota">
                     <div class="inline">
@@ -44,7 +44,7 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                     </div>
                 </div>
 
-                <hr>
+                <!-- <hr> -->
                 <p class="text-muted mb-lg-4 mb-md-4"></p>
                 <table class="tabeltotal">
                     <tr>
@@ -66,14 +66,14 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                             Total Sekolah
                         </td>
                         <td>:
-                            <?=number_format($datakabupaten['jumlah_sekolah'],0,",",".");?></td>
+                            <?=number_format($datasekolahan->total_sekolah,0,",",".");?></td>
                     </tr>
                     <tr>
                         <td>
                             Total Siswa
                         </td>
                         <td>:
-                            <?=number_format($datakabupaten['jumlah_siswa'],0,",",".");?></td>
+                            <?=number_format($datasiswa->total_siswa,0,",",".");?></td>
                     </tr>
                     <tr>
                         <td>
@@ -130,7 +130,7 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                         href="#nav-sek_status"
                         role="tab"
                         aria-controls="nav-sek_status"
-                        aria-selected="true">Status</a>
+                        aria-selected="true">Ruang Kelas</a>
                 </div>
             </nav>
             
@@ -158,7 +158,7 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                                     A
                                 </td>
                                 <td align="right">
-                                <?=number_format($akreditasi->total_a,0,",",".")?>
+                                <?=number_format($datasekolahan->t_akreditasi_a,0,",",".")?>
                                 </td>
                                 <td></td>
                             </tr>
@@ -167,7 +167,7 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                                     B
                                 </td>
                                 <td align="right">
-                                <?=number_format($akreditasi->total_b,0,",",".")?>
+                                <?=number_format($datasekolahan->t_akreditasi_b,0,",",".")?>
                                 </td>
                                 <td></td>
                             </tr>
@@ -176,7 +176,7 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                                     C
                                 </td>
                                 <td align="right">
-                                <?=number_format($akreditasi->total_c,0,",",".")?>
+                                <?=number_format($datasekolahan->t_akreditasi_c,0,",",".")?>
                                 </td>
                                 <td></td>
                             </tr>
@@ -185,7 +185,7 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                                     Terakreditasi
                                 </td>
                                 <td align="right">
-                                <?=number_format($akreditasi->total_ter,0,",",".")?>
+                                <?=number_format($datasekolahan->t_terakreditasi,0,",",".")?>
                                 </td>
                                 <td></td>
                             </tr>
@@ -194,7 +194,7 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                                     Tidak Terakreditasi
                                 </td>
                                 <td align="right">
-                                <?=number_format($akreditasi->total_tidak,0,",",".")?>
+                                <?=number_format($datasekolahan->t_tidak_terakreditasi,0,",",".")?>
                                 </td>
                                 <td></td>
                             </tr>
@@ -203,16 +203,7 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                                     Belum Terakreditasi
                                 </td>
                                 <td align="right">
-                                <?=number_format($akreditasi->total_belum,0,",",".")?>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Residu
-                                </td>
-                                <td align="right">
-                                <?=number_format($akreditasi->total_null,0,",",".")?>
+                                <?=number_format($datasekolahan->t_belum_terakreditasi,0,",",".")?>
                                 </td>
                                 <td></td>
                             </tr>
@@ -221,7 +212,7 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                                     <b>Total</b>
                                 </td>
                                 <td style="padding-left:100px;" align="right">
-                                <b><?=number_format($total_all_akreditasi,0,",",".")?></b>
+                                <b><?=number_format($datasekolahan->total_sekolah,0,",",".")?></b>
                                 </td>
                                 <td></td>
                             </tr>
@@ -238,38 +229,60 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <td>
-                                    <b>Status</b>
+                                <td width="30%">
+                                    <b>Kondisi Ruang Kelas</b>
                                 </td>
-                                <td>
+                                <td align="right" width="30%">
                                     <b>Jumlah</b>
                                 </td>
+                                <td align="right" width="30%"></td>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>
-                                    Negeri
+                                    Baik
                                 </td>
-                                <td>
-                                <?=$status_sekolah->total_negeri?>
+                                <td align="right">
+                                <?=number_format($datasekolahan->kelas_baik,0,",",".")?>
                                 </td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>
-                                    Swasta
+                                    Rusak Ringan
                                 </td>
-                                <td>
-                                <?=$status_sekolah->total_swasta?>
+                                <td align="right">
+                                <?=number_format($datasekolahan->kelas_r_ringan,0,",",".")?>
                                 </td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>
-                                    Aktif
+                                    Rusak Sedang
                                 </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->kelas_r_sedang,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
                                 <td>
-                                <?=$status_sekolah->total_aktif?>
+                                    Rusak Berat
                                 </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->kelas_r_berat,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Total
+                                </td>
+                                <td align="right">
+                                <b><?=number_format($datasekolahan->total_ruang_kelas,0,",",".")?></b>
+                                </td>
+                                <td></td>
                             </tr>
 
                         </tbody>
@@ -307,7 +320,7 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                         href="#nav-3-3"
                         role="tab"
                         aria-controls="nav-contact"
-                        aria-selected="false">Status</a>
+                        aria-selected="false">Usia</a>
                 </div>
             </nav>
         
@@ -320,12 +333,13 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <td>
+                                <td width="30%">
                                     <b>Jenis Kelamin</b>
                                 </td>
-                                <td>
+                                <td align="right" width="30%">
                                     <b>Jumlah</b>
                                 </td>
+                                <td align="right" width="30%"></td>
                             </tr>
                         </thead>
                         <tbody>
@@ -333,17 +347,28 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                                 <td>
                                     Laki-laki
                                 </td>
-                                <td>
-                                    0
+                                <td align="right">
+                                <?=number_format($datasiswa->t_siswa_laki,0,",",".")?>
                                 </td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>
                                     Perempuan
                                 </td>
-                                <td>
-                                    0
+                                <td align="right">
+                                <?=number_format($datasiswa->t_siswa_perempuan,0,",",".")?>
                                 </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Total</b>
+                                </td>
+                                <td align="right">
+                                <b><?=number_format($datasiswa->total_siswa,0,",",".")?></b>
+                                </td>
+                                <td></td>
                             </tr>
                         </tbody>
 
@@ -357,12 +382,13 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <td>
+                                <td width="30%">
                                     <b>Agama</b>
                                 </td>
-                                <td>
+                                <td align="right" width="30%">
                                     <b>Jumlah</b>
                                 </td>
+                                <td align="right" width="30%">
                             </tr>
                         </thead>
                         <tbody>
@@ -370,41 +396,82 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                                 <td>
                                     Islam
                                 </td>
-                                <td>
-                                    0
+                                <td align="right">
+                                <?=number_format($datasiswa->t_islam,0,",",".")?>
                                 </td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>
                                     Kristen
                                 </td>
-                                <td>
-                                    0
+                                <td align="right">
+                                <?=number_format($datasiswa->t_kristen,0,",",".")?>
                                 </td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>
                                     Katholik
                                 </td>
-                                <td>
-                                    0
+                                <td align="right">
+                                <?=number_format($datasiswa->t_katholik,0,",",".")?>
                                 </td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>
                                     Hindu
                                 </td>
-                                <td>
-                                    0
+                                <td align="right">
+                                <?=number_format($datasiswa->t_hindu,0,",",".")?>
                                 </td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>
                                     Budha
                                 </td>
-                                <td>
-                                    0
+                                <td align="right">
+                                <?=number_format($datasiswa->t_budha,0,",",".")?>
                                 </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Khonghucu
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasiswa->t_khonghucu,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Kepercayaan
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasiswa->t_kepercayaan,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Lainnya
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasiswa->t_lainnya,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Total</b>
+                                </td>
+                                <td align="right">
+                                <b><?=number_format($datasiswa->total_agama,0,",",".")?></b>
+                                </td>
+                                <td></td>
                             </tr>
                         </tbody>
 
@@ -415,7 +482,85 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                     id="nav-3-3"
                     role="tabpanel"
                     aria-labelledby="nav-3-3-tab">
-                    Data Status
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td width="30%">
+                                    <b>Rentang Usia</b>
+                                </td>
+                                <td align="right" width="30%">
+                                    <b>Jumlah</b>
+                                </td>
+                                <td align="right" width="30%">
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    < 4 tahun
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasiswa->t_k4,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    4 - 6 tahun
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasiswa->t_46,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    7 - 12 tahun
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasiswa->t_712,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    13 - 15 tahun
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasiswa->t_1315,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    16 - 18 tahun
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasiswa->t_1618,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    > 18 tahun
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasiswa->t_l18,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Total</b>
+                                </td>
+                                <td align="right">
+                                <b><?=number_format($datasiswa->total_usia,0,",",".")?></b>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+
+                    </table>
                 </div>
             </div>
         </div>
