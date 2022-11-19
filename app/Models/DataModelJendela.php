@@ -193,9 +193,50 @@ class DataModelJendela extends Model
 
     public function getTotalGuru($kodewilayah)
     {
-        $sql = "select sum([jenis_kelamin_laki_laki]), 
-                sum([jenis_kelamin_perempuan]), 
-                sum([jenis_kelamin_laki_laki]+[jenis_kelamin_perempuan]) as total_tendik 
+        $sql = "select sum([jenis_kelamin_laki_laki]) as t_guru_laki, 
+                sum([jenis_kelamin_perempuan]) as t_guru_perempuan, 
+                sum([jenis_kelamin_laki_laki]+[jenis_kelamin_perempuan]) as total_guru,
+                sum([guru_PNS]) as t_guru_pns,
+                sum([guru_yayasan]) as t_guru_yayasan,
+                sum([guru_honor_daerah]) as t_guru_honor,
+                sum([guru_bantu]) as t_guru_bantu,
+                sum([guru_tidak_tetap]) as t_guru_tidak_tetap,
+                sum([guru_PNS]+[guru_yayasan]+[guru_honor_daerah]+[guru_bantu]
+                +[guru_tidak_tetap]) as total_gurustatus, 
+                sum([gol_1]) as t_gurugol1, sum([gol_2]) as t_gurugol2,
+                sum([gol_3]) as t_gurugol3, sum([gol_4]) as t_gurugol4, 
+                sum([gol_1]+[gol_2]+[gol_3]+[gol_4]) as total_gurugol,
+                sum([sudah_sertifikasi]) as t_sertifikasi_sudah,
+                sum([belum_sertifikasi]) as t_sertifikasi_belum, 
+                sum([sudah_sertifikasi]+[belum_sertifikasi]) as total_sertifikasi
+                FROM [Dataprocess].[jendela].[pendidik] 
+                where kode_wilayah = :kodewilayah:";
+
+        $query = $this->db->query($sql,[
+            'kodewilayah' => $kodewilayah
+        ]);
+
+        return $query->getRow();
+    }
+
+    public function getTotalTendik($kodewilayah)
+    {
+        $sql = "select sum([jenis_kelamin_laki_laki]) as t_tendik_laki, 
+                sum([jenis_kelamin_perempuan]) as t_tendik_perempuan, 
+                sum([jenis_kelamin_laki_laki]+[jenis_kelamin_perempuan]) as total_tendik,
+                sum([tendik_PNS]) as t_tendik_pns,
+                sum([tendik_yayasan]) as t_tendik_yayasan,
+                sum([tendik_honor_daerah]) as t_tendik_honor,
+                sum([tendik_bantu]) as t_tendik_bantu,
+                sum([tendik_tidak_tetap]) as t_tendik_tidak_tetap,
+                sum([tendik_PNS]+[tendik_yayasan]+[tendik_honor_daerah]+[tendik_bantu]
+                +[tendik_tidak_tetap]) as total_tendikstatus, 
+                sum([gol_1]) as t_tendikgol1, sum([gol_2]) as t_tendikgol2,
+                sum([gol_3]) as t_tendikgol3, sum([gol_4]) as t_tendikgol4, 
+                sum([gol_1]+[gol_2]+[gol_3]+[gol_4]) as total_tendikgol,
+                sum([sudah_sertifikasi]) as t_sertifikasi_sudah,
+                sum([belum_sertifikasi]) as t_sertifikasi_belum, 
+                sum([sudah_sertifikasi]+[belum_sertifikasi]) as total_sertifikasi 
                 FROM [Dataprocess].[jendela].[tendik] 
                 where kode_wilayah = :kodewilayah:";
 

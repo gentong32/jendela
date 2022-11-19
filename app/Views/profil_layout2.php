@@ -595,6 +595,14 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                             href="#nav-2-3"
                             role="tab"
                             aria-controls="nav-2-3"
+                            aria-selected="false">Jenis Kelamin</a>
+                        <a
+                            class="nav-item nav-link"
+                            id="nav-2-4-tab"
+                            data-toggle="tab"
+                            href="#nav-2-4"
+                            role="tab"
+                            aria-controls="nav-2-4"
                             aria-selected="false">Sertifikasi</a>
                     </div>
                 </nav>
@@ -608,46 +616,61 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <td>
+                                    <td width="30%">
                                         <b>Status</b>
                                     </td>
-                                    <td>
+                                    <td align="right" width="30%">
                                         <b>Jumlah</b>
+                                    </td>
+                                    <td align="right" width="30%">
                                     </td>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>
-                                        PNS
+                                        Guru PNS
                                     </td>
-                                    <td>
-                                        0
+                                    <td align="right">
+                                    <?=number_format($dataguru->t_guru_pns,0,",",".")?>
                                     </td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        GTT
+                                        Guru Yayasan
                                     </td>
-                                    <td>
-                                        0
+                                    <td align="right">
+                                    <?=number_format($dataguru->t_guru_yayasan,0,",",".")?>
                                     </td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        GTY
+                                        Guru Honor Daerah
                                     </td>
-                                    <td>
-                                        0
+                                    <td align="right">
+                                    <?=number_format($dataguru->t_guru_honor,0,",",".")?>
                                     </td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Honor
+                                        Guru Bantu
                                     </td>
+                                    <td align="right">
+                                    <?=number_format($dataguru->t_guru_bantu,0,",",".")?>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
                                     <td>
-                                        0
+                                        <b>Total</b>
                                     </td>
+                                    <td align="right">
+                                    <b><?=number_format($dataguru->total_gurustatus,0,",",".")?></b>
+                                    </td>
+                                    <td></td>
                                 </tr>
                             </tbody>
 
@@ -661,11 +684,13 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <td>
+                                    <td width="30%">
                                         <b>Golongan</b>
                                     </td>
-                                    <td>
+                                    <td align="right" width="30%">
                                         <b>Jumlah</b>
+                                    </td>
+                                    <td align="right" width="30%">
                                     </td>
                                 </tr>
                             </thead>
@@ -674,33 +699,46 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                                     <td>
                                         Gol I
                                     </td>
-                                    <td>
-                                        0
+                                    <td align="right">
+                                    <?=number_format($dataguru->t_gurugol1,0,",",".")?>
                                     </td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         Gol II
                                     </td>
-                                    <td>
-                                        0
+                                    <td align="right">
+                                    <?=number_format($dataguru->t_gurugol2,0,",",".")?>
                                     </td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         Gol III
                                     </td>
-                                    <td>
-                                        0
+                                    <td align="right">
+                                    <?=number_format($dataguru->t_gurugol3,0,",",".")?>
                                     </td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         Gol IV
                                     </td>
-                                    <td>
-                                        0
+                                    <td align="right">
+                                    <?=number_format($dataguru->t_gurugol4,0,",",".")?>
                                     </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Total</b>
+                                    </td>
+                                    <td align="right">
+                                    <b><?=number_format($dataguru->total_gurugol,0,",",".")?></b>
+                                    </td>
+                                    <td></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -713,49 +751,93 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <td>
-                                        <b>Sertifikasi</b>
+                                    <td width="30%">
+                                        <b>Jenis Kelamin</b>
                                     </td>
-                                    <td>
+                                    <td align="right" width="30%">
                                         <b>Jumlah</b>
+                                    </td>
+                                    <td align="right" width="30%">
                                     </td>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>
-                                        Sertifikasi A
+                                       Laki-laki
                                     </td>
-                                    <td>
-                                        0
+                                    <td align="right">
+                                    <?=number_format($dataguru->t_guru_laki,0,",",".")?>
                                     </td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Sertifikasi B
+                                        Perempuan
                                     </td>
-                                    <td>
-                                        0
+                                    <td align="right">
+                                    <?=number_format($dataguru->t_guru_perempuan,0,",",".")?>
                                     </td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Sertifikasi C
+                                        <b>Total</b>
                                     </td>
-                                    <td>
-                                        0
+                                    <td align="right">
+                                    <b><?=number_format($dataguru->total_guru,0,",",".")?></b>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Sertifikasi D
-                                    </td>
-                                    <td>
-                                        0
-                                    </td>
+                                    <td></td>
                                 </tr>
                             </tbody>
-
+                        </table>
+                    </div>
+                    <div
+                        class="tab-pane fade"
+                        id="nav-2-4"
+                        role="tabpanel"
+                        aria-labelledby="nav-2-4-tab">
+                        <table class="table table-striped">
+                        <thead>
+                                <tr>
+                                    <td width="30%">
+                                        <b>Sertifikasi</b>
+                                    </td>
+                                    <td align="right" width="30%">
+                                        <b>Jumlah</b>
+                                    </td>
+                                    <td align="right" width="30%"></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Sudah Sertifikasi
+                                    </td>
+                                    <td align="right">
+                                    <?=number_format($dataguru->t_sertifikasi_belum,0,",",".")?>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Belum Sertifikasi
+                                    </td>
+                                    <td align="right">
+                                    <?=number_format($dataguru->t_sertifikasi_sudah,0,",",".")?>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Total</b>
+                                    </td>
+                                    <td align="right">
+                                    <b><?=number_format($dataguru->total_sertifikasi,0,",",".")?></b>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -788,7 +870,15 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                             href="#nav-2b-3"
                             role="tab"
                             aria-controls="nav-2b-3"
-                            aria-selected="false">Ijazah</a>
+                            aria-selected="false">Jenis Kelamin</a>
+                        <a
+                            class="nav-item nav-link"
+                            id="nav-2b-4-tab"
+                            data-toggle="tab"
+                            href="#nav-2b-4"
+                            role="tab"
+                            aria-controls="nav-2b-4"
+                            aria-selected="false">Sertifikasi</a>
                     </div>
                 </nav>
 
@@ -799,48 +889,72 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                         role="tabpanel"
                         aria-labelledby="nav-home-tab">
                         <table class="table table-striped">
-                            <thead>
+                        <thead>
                                 <tr>
-                                    <td>
+                                    <td width="30%">
                                         <b>Status</b>
                                     </td>
-                                    <td>
+                                    <td align="right" width="30%">
                                         <b>Jumlah</b>
+                                    </td>
+                                    <td align="right" width="30%">
                                     </td>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>
-                                        PNS
+                                        Tenaga Pendidik PNS
                                     </td>
-                                    <td>
-                                        0
+                                    <td align="right">
+                                    <?=number_format($datatendik->t_tendik_pns,0,",",".")?>
                                     </td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        GTT
+                                        Tenaga Pendidik Yayasan
                                     </td>
-                                    <td>
-                                        0
+                                    <td align="right">
+                                    <?=number_format($datatendik->t_tendik_yayasan,0,",",".")?>
                                     </td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        GTY
+                                        Tenaga Pendidik Honor Daerah
                                     </td>
-                                    <td>
-                                        0
+                                    <td align="right">
+                                    <?=number_format($datatendik->t_tendik_honor,0,",",".")?>
                                     </td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Honor
+                                        Tenaga Pendidik Bantu
                                     </td>
+                                    <td align="right">
+                                    <?=number_format($datatendik->t_tendik_bantu,0,",",".")?>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
                                     <td>
-                                        0
+                                        Tenaga Pendidik Tidak Tetap
                                     </td>
+                                    <td align="right">
+                                    <?=number_format($datatendik->t_tendik_tidak_tetap,0,",",".")?>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Total</b>
+                                    </td>
+                                    <td align="right">
+                                    <b><?=number_format($datatendik->total_tendikstatus,0,",",".")?></b>
+                                    </td>
+                                    <td></td>
                                 </tr>
                             </tbody>
 
@@ -852,13 +966,15 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                         role="tabpanel"
                         aria-labelledby="nav-2b-2-tab">
                         <table class="table table-striped">
-                            <thead>
+                        <thead>
                                 <tr>
-                                    <td>
+                                    <td width="30%">
                                         <b>Golongan</b>
                                     </td>
-                                    <td>
+                                    <td align="right" width="30%">
                                         <b>Jumlah</b>
+                                    </td>
+                                    <td align="right" width="30%">
                                     </td>
                                 </tr>
                             </thead>
@@ -867,33 +983,46 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                                     <td>
                                         Gol I
                                     </td>
-                                    <td>
-                                        0
+                                    <td align="right">
+                                    <?=number_format($datatendik->t_tendikgol1,0,",",".")?>
                                     </td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         Gol II
                                     </td>
-                                    <td>
-                                        0
+                                    <td align="right">
+                                    <?=number_format($datatendik->t_tendikgol2,0,",",".")?>
                                     </td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         Gol III
                                     </td>
-                                    <td>
-                                        0
+                                    <td align="right">
+                                    <?=number_format($datatendik->t_tendikgol3,0,",",".")?>
                                     </td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         Gol IV
                                     </td>
-                                    <td>
-                                        0
+                                    <td align="right">
+                                    <?=number_format($datatendik->t_tendikgol4,0,",",".")?>
                                     </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Total</b>
+                                    </td>
+                                    <td align="right">
+                                    <b><?=number_format($datatendik->total_tendikgol,0,",",".")?></b>
+                                    </td>
+                                    <td></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -904,51 +1033,95 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                         role="tabpanel"
                         aria-labelledby="nav-2b-3-tab">
                         <table class="table table-striped">
-                            <thead>
+                        <thead>
                                 <tr>
-                                    <td>
-                                        <b>Sertifikasi</b>
+                                    <td width="30%">
+                                        <b>Jenis Kelamin</b>
                                     </td>
-                                    <td>
+                                    <td align="right" width="30%">
                                         <b>Jumlah</b>
+                                    </td>
+                                    <td align="right" width="30%">
                                     </td>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>
-                                        Sertifikasi A
+                                       Laki-laki
                                     </td>
-                                    <td>
-                                        0
+                                    <td align="right">
+                                    <?=number_format($datatendik->t_tendik_laki,0,",",".")?>
                                     </td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Sertifikasi B
+                                        Perempuan
                                     </td>
-                                    <td>
-                                        0
+                                    <td align="right">
+                                    <?=number_format($datatendik->t_tendik_perempuan,0,",",".")?>
                                     </td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Sertifikasi C
+                                        <b>Total</b>
                                     </td>
-                                    <td>
-                                        0
+                                    <td align="right">
+                                    <b><?=number_format($datatendik->total_tendik,0,",",".")?></b>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Sertifikasi D
-                                    </td>
-                                    <td>
-                                        0
-                                    </td>
+                                    <td></td>
                                 </tr>
                             </tbody>
-
+                        </table>
+                    </div>
+                    <div
+                        class="tab-pane fade"
+                        id="nav-2b-4"
+                        role="tabpanel"
+                        aria-labelledby="nav-2b-4-tab">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <td width="30%">
+                                        <b>Sertifikasi</b>
+                                    </td>
+                                    <td align="right" width="30%">
+                                        <b>Jumlah</b>
+                                    </td>
+                                    <td align="right" width="30%"></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Sudah Sertifikasi
+                                    </td>
+                                    <td align="right">
+                                    <?=number_format($datatendik->t_sertifikasi_belum,0,",",".")?>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Belum Sertifikasi
+                                    </td>
+                                    <td align="right">
+                                    <?=number_format($datatendik->t_sertifikasi_sudah,0,",",".")?>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Total</b>
+                                    </td>
+                                    <td align="right">
+                                    <b><?=number_format($datatendik->total_sertifikasi,0,",",".")?></b>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>

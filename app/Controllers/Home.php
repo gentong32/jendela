@@ -29,6 +29,7 @@ class Home extends BaseController
         $getkelurahan = $this->datamodeljendela->getKelurahan($kodewilayah);
         $getkabkot = $this->datamodeljendela->getKabKot($kodewilayah)->getRow();
         $getguru = $this->datamodeljendela->getTotalGuru($kodewilayah);
+        $gettendik = $this->datamodeljendela->getTotalTendik($kodewilayah);
         $getcagarbudaya = "0";//$this->datamodeljendela->getGuru($kodewilayah);
         $getmuseum = "0";//$this->datamodeljendela->getGuru($kodewilayah);
         $get_sekolah_akreditasi = $this->datamodeljendela->get_sekolah_akreditasi($kodewilayah);
@@ -40,7 +41,7 @@ class Home extends BaseController
         $datakebupaten['nama'] = $getkabkot->nama;
         $datakebupaten['jumlah_kecamatan'] = sizeof($getkecamatan->getResult());
         $datakebupaten['jumlah_kelurahan'] = sizeof($getkelurahan->getResult());
-        $datakebupaten['jumlah_guru'] = $getguru->total_tendik;
+        $datakebupaten['jumlah_guru'] = $getguru->total_guru+$gettendik->total_tendik;
         $datakebudayaan=[];
         $datakebudayaan['jumlah_cagarbudaya'] = $getcagarbudaya;//sizeof($getsiswa->getResult());
         $datakebudayaan['jumlah_museum'] = $getmuseum;//sizeof($getsiswa->getResult());
@@ -57,6 +58,8 @@ class Home extends BaseController
         $data['datakebudayaan'] = $datakebudayaan;
         $data['datasekolahan'] = $getsekolah;
         $data['datasiswa'] = $getsiswa;
+        $data['dataguru'] = $getguru;
+        $data['datatendik'] = $gettendik;
         $data['kodewilayah'] = $kodewilayah;
         // $data['namakota'] = "Tangerang Selatan";
         
