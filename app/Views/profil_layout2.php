@@ -130,7 +130,23 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                         href="#nav-sek_status"
                         role="tab"
                         aria-controls="nav-sek_status"
-                        aria-selected="true">Ruang Kelas</a>
+                        aria-selected="true">Ruang Kelas dan Lab</a>
+                    <a
+                        class="nav-item nav-link"
+                        id="nav-sek_sarpras-tab"
+                        data-toggle="tab"
+                        href="#nav-sek_sarpras"
+                        role="tab"
+                        aria-controls="nav-sek_sarpras"
+                        aria-selected="true">Sarana & Prasarana</a>
+                    <a
+                        class="nav-item nav-link"
+                        id="nav-sek_jamkerja-tab"
+                        data-toggle="tab"
+                        href="#nav-sek_jamkerja"
+                        role="tab"
+                        aria-controls="nav-sek_sarpras"
+                        aria-selected="true">Waktu Penyelengaraan</a>
                 </div>
             </nav>
             
@@ -277,16 +293,874 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                             </tr>
                             <tr>
                                 <td>
-                                    Total
+                                    <b>Total</b>
                                 </td>
                                 <td align="right">
                                 <b><?=number_format($datasekolahan->total_ruang_kelas,0,",",".")?></b>
                                 </td>
                                 <td></td>
                             </tr>
-
                         </tbody>
+                    </table>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td width="30%">
+                                    <b>Kondisi Laboratorium IPA</b>
+                                </td>
+                                <td align="right" width="30%">
+                                    <b>Jumlah</b>
+                                </td>
+                                <td align="right" width="30%"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Baik
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_ipabaik,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Ringan
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_ipar_ringan,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Sedang
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_ipar_sedang,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Berat
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_ipar_berat,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td width="30%">
+                                    <b>Kondisi Laboratorium KIMIA</b>
+                                </td>
+                                <td align="right" width="30%">
+                                    <b>Jumlah</b>
+                                </td>
+                                <td align="right" width="30%"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Baik
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_kimbaik,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Ringan
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_kimr_ringan,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Sedang
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_kimr_sedang,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Berat
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_kimr_berat,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td width="30%">
+                                    <b>Kondisi Laboratorium FISIKA</b>
+                                </td>
+                                <td align="right" width="30%">
+                                    <b>Jumlah</b>
+                                </td>
+                                <td align="right" width="30%"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Baik
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_fisbaik,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Ringan
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_fisr_ringan,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Sedang
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_fisr_sedang,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Berat
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_fisr_berat,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td width="30%">
+                                    <b>Kondisi Laboratorium BIOLOGI</b>
+                                </td>
+                                <td align="right" width="30%">
+                                    <b>Jumlah</b>
+                                </td>
+                                <td align="right" width="30%"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Baik
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_biobaik,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Ringan
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_bior_ringan,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Sedang
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_bior_sedang,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Berat
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_bior_berat,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td width="30%">
+                                    <b>Kondisi Laboratorium BAHASA</b>
+                                </td>
+                                <td align="right" width="30%">
+                                    <b>Jumlah</b>
+                                </td>
+                                <td align="right" width="30%"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Baik
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_bhsbaik,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Ringan
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_bhsr_ringan,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Sedang
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_bhsr_sedang,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Berat
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_bhsr_berat,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td width="30%">
+                                    <b>Kondisi Laboratorium IPS</b>
+                                </td>
+                                <td align="right" width="30%">
+                                    <b>Jumlah</b>
+                                </td>
+                                <td align="right" width="30%"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Baik
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_ipsbaik,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Ringan
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_ipsr_ringan,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Sedang
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_ipsr_sedang,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Berat
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_ipsr_berat,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td width="30%">
+                                    <b>Kondisi Laboratorium KOMPUTER</b>
+                                </td>
+                                <td align="right" width="30%">
+                                    <b>Jumlah</b>
+                                </td>
+                                <td align="right" width="30%"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Baik
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_kombaik,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Ringan
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_komr_ringan,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Sedang
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_komr_sedang,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Berat
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_lab_komr_berat,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td width="30%">
+                                    <b>Kondisi Ruang Perpustakaan</b>
+                                </td>
+                                <td align="right" width="30%">
+                                    <b>Jumlah</b>
+                                </td>
+                                <td align="right" width="30%"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Baik
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_perpusbaik,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Ringan
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_perpusr_ringan,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Sedang
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_perpusr_sedang,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Berat
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_perpusr_berat,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td width="30%">
+                                    <b>Kondisi Ruang UKS</b>
+                                </td>
+                                <td align="right" width="30%">
+                                    <b>Jumlah</b>
+                                </td>
+                                <td align="right" width="30%"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Baik
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_uksbaik,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Ringan
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_uksr_ringan,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Sedang
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_uksr_sedang,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Rusak Berat
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_uksr_berat,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div
+                    class="tab-pane fade"
+                    id="nav-sek_sarpras"
+                    role="tabpanel"
+                    aria-labelledby="nav-sek_sarpras-tab">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td width="30%">
+                                    <b>Sumber Listrik</b>
+                                </td>
+                                <td align="right" width="30%">
+                                    <b>Jumlah</b>
+                                </td>
+                                <td align="right" width="30%"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                     Ada
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_listrikada,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Tidak ada
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_listriktakada,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                         </tbody>
+                    </table>
 
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td width="30%">
+                                    <b>Akses Internet</b>
+                                </td>
+                                <td align="right" width="30%">
+                                    <b>Jumlah</b>
+                                </td>
+                                <td align="right" width="30%"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                     Ada
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_internetada,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Tidak ada
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_internettakada,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                         </tbody>
+                    </table>
+                    
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td width="30%">
+                                    <b>Sumber Air</b>
+                                </td>
+                                <td align="right" width="30%">
+                                    <b>Jumlah</b>
+                                </td>
+                                <td align="right" width="30%"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                     Kemasan
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_airkemasan,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    PAM
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_airpam,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Pompa
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_airpompa,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Hujan
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_airhujan,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Sumur Terlindungi
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_airsumur,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Mata Air Terlindungi
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_airmataair,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Sungai
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_airsungai,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Lainnya
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_airlain,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                         </tbody>
+                    </table>
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td width="30%">
+                                    <b>Kecukupan Air</b>
+                                </td>
+                                <td align="right" width="30%">
+                                    <b>Jumlah</b>
+                                </td>
+                                <td align="right" width="30%"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                     Cukup Sepanjang Waktu
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_aircukup,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Tidak Cukup Sepanjang Waktu
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_airtakcukup,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Belum mengisi data
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_airbelum,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                         </tbody>
+                    </table>
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td width="30%">
+                                    <b>Kondisi WC Guru</b>
+                                </td>
+                                <td align="right" width="30%">
+                                    <b>Jumlah</b>
+                                </td>
+                                <td align="right" width="30%"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                     WC Guru Baik
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_wcgurubaik,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    WC Guru Rusak Ringan
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_wcgurur_ringan,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    WC Guru Rusak Sedang
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_wcgurur_sedang,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    WC Guru Rusak Berat
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_wcgurur_berat,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                         </tbody>
+                    </table>
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td width="30%">
+                                    <b>Kondisi WC Siswa</b>
+                                </td>
+                                <td align="right" width="30%">
+                                    <b>Jumlah</b>
+                                </td>
+                                <td align="right" width="30%"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                     WC Siswa Baik
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_wcsiswabaik,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    WC Siswa Rusak Ringan
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_wcsiswar_ringan,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    WC Siswa Rusak Sedang
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_wcsiswar_sedang,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    WC Siswa Rusak Berat
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_wcsiswar_berat,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                         </tbody>
+                    </table>
+                </div>
+                <div
+                    class="tab-pane fade"
+                    id="nav-sek_jamkerja"
+                    role="tabpanel"
+                    aria-labelledby="nav-sek_jamkerja-tab">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td width="30%">
+                                    <b>Waktu Penyelenggaraan</b>
+                                </td>
+                                <td align="right" width="30%">
+                                    <b>Jumlah</b>
+                                </td>
+                                <td align="right" width="30%"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                     Pagi 6 hari
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_waktu_pagi_6hari,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Siang 6 hari
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_waktu_siang_6hari,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Doubleshift 6 hari
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_waktu_dobel_6hari,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Sore 6 hari
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_waktu_sore_6hari,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Malam 6 hari
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_waktu_malam_6hari,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Sehari penuh 5 hari
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_waktu_penuh_5hari,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Sehari penuh 6 hari
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_waktu_penuh_6hari,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Sehari penuh 3 hari
+                                </td>
+                                <td align="right">
+                                <?=number_format($datasekolahan->t_waktu_penuh_3hari,0,",",".")?>
+                                </td>
+                                <td></td>
+                            </tr>
+                         </tbody>
                     </table>
                 </div>
             </div>
