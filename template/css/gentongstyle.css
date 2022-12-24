@@ -1,3 +1,28 @@
+a:link,
+a:visited {
+  text-decoration: none;
+}
+
+a {
+  color: inherit;
+  transition: 0.2s ease;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #000;
+}
+
+a.read-more {
+  color: #ffb600;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+a.read-more:hover {
+  color: #222;
+}
+
 .bar { 
     margin-left:5px;
 }
@@ -38,6 +63,14 @@
     border: 1px solid rgb(198, 223, 182);
 }
 
+.breadcrumps {
+    margin:10px;
+  }
+  
+.breadcrumps a {
+color:blue;
+}
+
 .ckota {
     margin-top: 5px;
     margin-left: 0px;
@@ -61,8 +94,8 @@
 .coveropsi 
 {
     padding:10px;
-    border:0.5px solid darkblue;
-    border-radius: 5px;
+    /* border:0.5px solid darkblue;
+    border-radius: 5px; */
 }
 
 .footer1 {
@@ -86,7 +119,20 @@
     padding-top:15px;
     padding-bottom:15px;
     font-size: 16px;
+    width:100%;
 }
+
+.dlogo {
+    max-width:360px;
+}
+
+.imgtutwuri{
+    width:15%;
+}
+.imgteks{
+    width:75%;
+}
+
 
 .info {
     margin-top:10px;
@@ -114,8 +160,25 @@
     font-size: 15px;
 }
 
+.judulatas {
+    font-weight:bold;
+    font-size:20px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 5px;
+} 
+
+.kanan10spasi {
+    text-align: right;
+    padding-right: 15px !important;
+}
+
 .kontainer {
     margin:15px !important;
+}
+
+.kontakkami {
+    font-size:11px;
 }
 
 .kontainer table tr {
@@ -124,6 +187,18 @@
 
 .label1 {
     font-size:14px;
+}
+
+.link1 {
+    color: #3055be !important;
+}
+
+.link1:hover {
+    color: #3055be;
+}
+
+.link2 {
+    color: red;
 }
 
 .menu1 {
@@ -135,6 +210,10 @@
 .menu1 ul li a:hover{
     color: greenyellow;
 }
+
+div.dataTables_filter, div.dataTables_length {
+    padding-bottom: 10px;
+  }
 
 .nav-link {
     color: green;
@@ -154,10 +233,39 @@
     border: 1px solid green;
 }
 
+#table1 thead th {text-align: center !important;}
+
+#table1 thead th {
+    vertical-align: middle !important;
+    background-color: lightgrey !important;
+}
+
+.table1th {
+    text-align: center;
+    vertical-align: middle !important;
+    background-color: lightgrey !important;
+}
+
+td[colspan="2"] {
+    text-align: center;
+}
+
 .text1 {
     font-size:16px;
 }
 
+.text-center {
+    text-align:center;
+}
+
+.text-right {
+  text-align: right;
+  padding-right:25px !important;
+}
+
+.text-wrap{
+    white-space:normal;
+}
 
 .panel {
     border-bottom: 1px solid rgba(224, 224, 224, 0.6);
@@ -178,12 +286,30 @@
     line-height:12px;
 }
 
-.tab-content {
-    border:1px solid lightgrey;
-    padding:15px;
-    margin:10px;
+
+.tab-content table td{
+    line-height: 16px;
 }
 
+.tab-content table thead td{
+    vertical-align: top;
+}
+
+.tab-content table th { white-space: normal; }
+    div.dataTables_wrapper {
+        clear: both;
+        border-collapse: collapse;
+        table-layout: fixed; 
+        word-wrap:break-word;
+    }
+
+.tab-content table td{ white-space: normal; }
+    div.dataTables_wrapper {
+        clear: both;
+        border-collapse: collapse;
+        table-layout: fixed; 
+        word-wrap:break-word;
+    }
 
 
 .tabeltotal td

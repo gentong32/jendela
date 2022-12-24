@@ -6,6 +6,18 @@ use CodeIgniter\Model;
 
 class DataModelJendela extends Model
 {
+    protected $paudall = "sum (case when bentuk_pendidikan='TK' then akreditasi_a else 0) as tk_akreditasi_a, 
+    sum (case when bentuk_pendidikan='KB' then akreditasi_a else 0) as kb_akreditasi_a
+    s.bentuk_pendidikan='KB' OR 
+    s.bentuk_pendidikan='TPA' OR 
+    s.bentuk_pendidikan='SPS' OR 
+    s.bentuk_pendidikan='RA' OR 
+    s.bentuk_pendidikan='Taman Seminari' OR 
+    s.bentuk_pendidikan='SPK KB' OR 
+    s.bentuk_pendidikan='SPK TK' OR 
+    s.bentuk_pendidikan='Pratama W P' OR 
+    s.bentuk_pendidikan='Nava Dhammasekha'";
+
     public function getKecamatan($kodewilayah) {
         $kodewilayah = substr($kodewilayah,0,6);
 
@@ -115,6 +127,122 @@ class DataModelJendela extends Model
         ]);
 
         return $query;
+    }
+
+    public function getTotalSekolahBentuk($kodewilayah,$bentuks,$fields,$entitas)
+    {
+        // $bentuks = array('TK','KB','TPA','SPS','RA','Taman Seminari','SPK KB','PAUDQ','SPK PG','SPK TK','Pratama W P','Nava Dhammasekha');
+        // $fields = array ('akreditasi_a','akreditasi_b','akreditasi_c','akreditasi_tidak_terakreditasi','akreditasi_belum_terakreditasi','akreditasi_terakreditasi');
+        $thesum = "";
+        foreach ($fields as $field)
+        {
+            if (is_array($bentuks))
+            {
+                foreach($bentuks as $bentuk)
+                {
+                    $namakecil = strtolower($bentuk);
+                    $namakecil = str_replace(" ","",$namakecil);
+                    $namakecil = str_replace(".","",$namakecil);
+                    if ($bentuk=="Akademik")
+                    $thesum = $thesum." sum (case when (bentuk_pendidikan='Akademik' OR bentuk_pendidikan='Akademi') then ".$field." else 0 end) as ".$namakecil."_".$field.",";
+                    else
+                    $thesum = $thesum." sum (case when bentuk_pendidikan='".$bentuk."' then ".$field." else 0 end) as ".$namakecil."_".$field.",";
+                }
+            }
+            else
+            {
+                $thesum = $thesum." sum (".$field.") as t_".$field.",";
+            }
+        }
+
+        $sql = "SELECT ".$thesum." max(kode_wilayah) as kode_wilayah  
+        from dataprocess.jendela.".$entitas." where kode_wilayah = :kodewilayah: ";
+
+        // echo $sql;
+
+        $query = $this->db->query($sql,[
+            'kodewilayah' => $kodewilayah
+        ]);
+
+
+        return $query->getRowArray();
+    }
+
+    public function getTotalSekolahBentukAll($kodewilayah,$paud,$dikdas,$dikmen,$dikti,$dikmas,$fields,$entitas)
+    {
+        $thesum="";
+        foreach ($fields as $field)
+        {
+            $oror = "";
+            foreach($paud as $bentuk)
+            {
+                $namakecil = strtolower($bentuk);
+                $namakecil = str_replace(" ","",$namakecil);
+                $namakecil = str_replace(".","",$namakecil);
+                $oror = $oror."'".$bentuk."',";
+            }
+            $oror = $oror."'".$bentuk."'";
+            $thesum = $thesum." sum (case when bentuk_pendidikan in (".$oror.") then ".$field." else 0 end) as paud_".$field.",";
+
+            $oror = "";
+            foreach($dikdas as $bentuk)
+            {
+                $namakecil = strtolower($bentuk);
+                $namakecil = str_replace(" ","",$namakecil);
+                $namakecil = str_replace(".","",$namakecil);
+                $oror = $oror."'".$bentuk."',";
+            }
+            $oror = $oror."'".$bentuk."'";
+            $thesum = $thesum." sum (case when bentuk_pendidikan in (".$oror.") then ".$field." else 0 end) as dikdas_".$field.",";
+
+            $oror = "";
+            foreach($dikmen as $bentuk)
+            {
+                $namakecil = strtolower($bentuk);
+                $namakecil = str_replace(" ","",$namakecil);
+                $namakecil = str_replace(".","",$namakecil);
+                $oror = $oror."'".$bentuk."',";
+            }
+            $oror = $oror."'".$bentuk."'";
+            $thesum = $thesum." sum (case when bentuk_pendidikan in (".$oror.") then ".$field." else 0 end) as dikmen_".$field.",";
+
+            $oror = "";
+            foreach($dikti as $bentuk)
+            {
+                $namakecil = strtolower($bentuk);
+                $namakecil = str_replace(" ","",$namakecil);
+                $namakecil = str_replace(".","",$namakecil);
+                $oror = $oror."'".$bentuk."',";
+                if ($bentuk=="Akademik")
+                $oror = $oror."'Akademi',";
+
+            }
+            $oror = $oror."'".$bentuk."'";
+            $thesum = $thesum." sum (case when bentuk_pendidikan in (".$oror.") then ".$field." else 0 end) as dikti_".$field.",";
+
+            $oror = "";
+            foreach($dikmas as $bentuk)
+            {
+                $namakecil = strtolower($bentuk);
+                $namakecil = str_replace(" ","",$namakecil);
+                $namakecil = str_replace(".","",$namakecil);
+                $oror = $oror."'".$bentuk."',";
+            }
+            $oror = $oror."'".$bentuk."'";
+            $thesum = $thesum." sum (case when bentuk_pendidikan in (".$oror.") then ".$field." else 0 end) as dikmas_".$field.",";
+        }
+
+        $sql = "SELECT ".$thesum." max(kode_wilayah) as kode_wilayah  
+        from dataprocess.jendela.".$entitas." where kode_wilayah = :kodewilayah: ";
+
+        // echo $sql;
+
+        $query = $this->db->query($sql,[
+            'kodewilayah' => $kodewilayah
+        ]);
+
+
+        return $query->getRowArray();
     }
 
     public function getTotalSekolah($kodewilayah)
@@ -266,7 +394,13 @@ class DataModelJendela extends Model
         sum([usia_siswa_16_18]) as t_1618,
         sum([usia_siswa_lebih_18]) as t_l18,
         sum([usia_siswa_kurang_4]+[usia_siswa_4_6]+[usia_siswa_7_12]+[usia_siswa_13_15]
-        +[usia_siswa_16_18]+[usia_siswa_lebih_18]) as total_usia 
+        +[usia_siswa_16_18]+[usia_siswa_lebih_18]) as total_usia,
+        sum([tunanetra]) as t_tunanetra,
+        sum([tunarungu]) as t_tunarungu,
+        sum([tunagrahita]) as t_tunagrahita,
+        sum([tunadaksa]) as t_tunadaksa,
+        sum([autis]) as t_autis,
+        sum([tunaganda] ) as t_tunaganda
         FROM [Dataprocess].[jendela].[siswa] 
         where kode_wilayah = :kodewilayah:
         group by kode_wilayah";
@@ -325,6 +459,34 @@ class DataModelJendela extends Model
                 sum([belum_sertifikasi]) as t_sertifikasi_belum, 
                 sum([sudah_sertifikasi]+[belum_sertifikasi]) as total_sertifikasi 
                 FROM [Dataprocess].[jendela].[tendik] 
+                where kode_wilayah = :kodewilayah:";
+
+        $query = $this->db->query($sql,[
+            'kodewilayah' => $kodewilayah
+        ]);
+
+        return $query->getRow();
+    }
+
+    public function getTotalKepsek($kodewilayah)
+    {
+        $sql = "select sum([jenis_kelamin_laki_laki]) as t_kepsek_laki, 
+                sum([jenis_kelamin_perempuan]) as t_kepsek_perempuan, 
+                sum([jenis_kelamin_laki_laki]+[jenis_kelamin_perempuan]) as total_kepsek,
+                sum([kepsek_PNS]) as t_kepsek_pns,
+                sum([kepsek_yayasan]) as t_kepsek_yayasan,
+                sum([kepsek_honor_daerah]) as t_kepsek_honor,
+                sum([kepsek_bantu]) as t_kepsek_bantu,
+                sum([kepsek_tidak_tetap]) as t_kepsek_tidak_tetap,
+                sum([kepsek_PNS]+[kepsek_yayasan]+[kepsek_honor_daerah]+[kepsek_bantu]
+                +[kepsek_tidak_tetap]) as total_kepsekstatus, 
+                sum([gol_1]) as t_kepsekgol1, sum([gol_2]) as t_kepsekgol2,
+                sum([gol_3]) as t_kepsekgol3, sum([gol_4]) as t_kepsekgol4, 
+                sum([gol_1]+[gol_2]+[gol_3]+[gol_4]) as total_kepsekgol,
+                sum([sudah_sertifikasi]) as t_sertifikasi_sudah,
+                sum([belum_sertifikasi]) as t_sertifikasi_belum, 
+                sum([sudah_sertifikasi]+[belum_sertifikasi]) as total_sertifikasi 
+                FROM [Dataprocess].[jendela].[kepsek] 
                 where kode_wilayah = :kodewilayah:";
 
         $query = $this->db->query($sql,[
@@ -403,5 +565,147 @@ class DataModelJendela extends Model
         $hasil['lintang'] = $lintangtengah;
 
         return $hasil;
+    }
+
+    public function getNamaPilihan($kode)
+    {
+        $sql = 'SELECT nama FROM Referensi.ref.mst_wilayah w  
+                WHERE kode_wilayah=:kodewilayah:';
+        $query = $this->db->query($sql, [
+            'kodewilayah'  => $kode
+        ]);
+
+        return $query;
+    }
+
+    public function getSemuaTotalSekolah($kode,$level) {
+
+        $nkar = $level * 2;
+        $nkar2 = $nkar + 2;
+        $levelbaru = $level+1;
+        $kodebaru = substr($kode,0,$nkar);
+        
+        $sql = "SELECT nama, kode_wilayah, sum (sekolah_negeri) as jml_sekolah_negeri,
+        sum (sekolah_swasta) as jml_sekolah_swasta
+        FROM [Dataprocess].[jendela].sekolah 
+        where mst_kode_wilayah = :kode:
+        group by nama,kode_wilayah 
+        order by kode_wilayah";
+                
+        $query = $this->db->query($sql, [
+            'kode' => $kode,
+        ]);
+        
+        return $query;
+    }
+
+    public function getSemuaTotalSiswa($kode,$level) {
+
+        $nkar = $level * 2;
+        $nkar2 = $nkar + 2;
+        $levelbaru = $level+1;
+        $kodebaru = substr($kode,0,$nkar);
+        
+        $sql = "SELECT nama, sum (siswa_negeri) as jml_siswa_negeri,
+        sum (siswa_swasta) as jml_siswa_swasta
+        FROM [Dataprocess].[jendela].siswa 
+        where mst_kode_wilayah = :kode:
+        group by nama,kode_wilayah";
+                
+        $query = $this->db->query($sql, [
+            'kode' => $kode,
+        ]);
+        
+        return $query;
+    }
+
+    public function getSemuaTotalPendidik($kode,$level) {
+
+        $nkar = $level * 2;
+        $nkar2 = $nkar + 2;
+        $levelbaru = $level+1;
+        $kodebaru = substr($kode,0,$nkar);
+        
+        $sql = "SELECT nama, sum (pendidik_negeri) as jml_pendidik_negeri,
+        sum (pendidik_swasta) as jml_pendidik_swasta
+        FROM [Dataprocess].[jendela].pendidik 
+        where mst_kode_wilayah = :kode:
+        group by nama,kode_wilayah";
+                
+        $query = $this->db->query($sql, [
+            'kode' => $kode,
+        ]);
+        
+        return $query;
+    }
+
+    public function getSemuaTotalTendik($kode,$level) {
+
+        $nkar = $level * 2;
+        $nkar2 = $nkar + 2;
+        $levelbaru = $level+1;
+        $kodebaru = substr($kode,0,$nkar);
+        
+        $sql = "SELECT nama, sum (tendik_negeri) as jml_tendik_negeri,
+        sum (tendik_swasta) as jml_tendik_swasta
+        FROM [Dataprocess].[jendela].tendik 
+        where mst_kode_wilayah = :kode:
+        group by nama,kode_wilayah";
+                
+        $query = $this->db->query($sql, [
+            'kode' => $kode,
+        ]);
+        
+        return $query;
+    }
+
+    public function getSemuaTotalKepsek($kode,$level) {
+
+        $nkar = $level * 2;
+        $nkar2 = $nkar + 2;
+        $levelbaru = $level+1;
+        $kodebaru = substr($kode,0,$nkar);
+        
+        $sql = "SELECT nama, sum (kepsek_negeri) as jml_kepsek_negeri,
+        sum (kepsek_swasta) as jml_kepsek_swasta
+        FROM [Dataprocess].[jendela].kepsek 
+        where mst_kode_wilayah = :kode:
+        group by nama,kode_wilayah";
+                
+        $query = $this->db->query($sql, [
+            'kode' => $kode,
+        ]);
+        
+        return $query;
+    }
+
+    public function getSemuaDaftarSekolah($status,$kodebaru)
+    {
+        if ($status=="all")
+            $wherestatus = "";
+        else if ($status=="s1")
+            $wherestatus = " AND status_sekolah = 1 ";
+        else if ($status=="s2")
+            $wherestatus = " AND status_sekolah = 2 ";
+
+        $sql = "SELECT npsn, nama, alamat_jalan, desa_kelurahan, 
+        kode_wilayah, kkni_level_1, kkni_level_2, kkni_level_3, kkni_level_4, kkni_level_5,
+        kkni_level_6, kkni_level_7, kkni_level_8, kkni_level_9,
+        CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl
+        FROM Arsip.dbo.sekolah s 
+        JOIN Dataprocess.dbo.sekolah_jenis_layanan d on d.sekolah_id=s.sekolah_id 
+        WHERE (".$this->trampilall.") AND 
+         (d.kkni_level_1 > 0 OR d.kkni_level_2 > 0 OR d.kkni_level_3 > 0 OR
+          d.kkni_level_4 > 0 OR d.kkni_level_5 > 0 OR d.kkni_level_6 > 0 OR
+          d.kkni_level_7 > 0 OR d.kkni_level_8 > 0 OR d.kkni_level_9 > 0) 
+        AND LEFT(kode_wilayah,6)=:kodebaru: AND soft_delete=0 
+        ".$wherestatus." 
+        ORDER BY nama";
+
+        $query = $this->db->query($sql, [
+            'kodebaru'  => $kodebaru
+        ]);
+
+        return $query;
     }
 }

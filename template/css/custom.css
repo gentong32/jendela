@@ -10,3 +10,468 @@
     border:1px solid rgb(171, 171, 171) !important;
  }
  
+ .bgcoklat {
+   background-color: rgb(222, 220, 197) !important;
+ }
+ 
+ .menupustaka {
+   margin:15px;
+ }
+ 
+ .isipustaka {
+   margin:15px;
+   background-color:rgb(250, 248, 246);
+   border-radius: 5px;
+   padding:10px;
+   border:1px solid burlywood;
+ }
+ 
+ .isipustaka table td {
+   vertical-align: top;
+ }
+ 
+ .isipustaka table th {
+   background-color:rgb(202, 196, 183);
+ }
+ .isipustaka table th:nth-child(1) {
+   text-align: center;
+ }
+ .isipustaka table td:nth-child(1) {
+   text-align: center;
+ }
+ .isipustaka ul {
+   margin-left:-25px;
+ }
+ 
+ .tbpustaka {
+   font-size: 13px;
+ }
+ .tbpustaka tr th {
+   padding-left:10px;
+   background-color: #282828;
+   color: white;
+   font-size: 13px;
+ }
+ .tbpustaka tr td {
+   padding-left:10px;
+ }
+ .table-striped2>tbody>tr:nth-of-type(odd){
+   background-color:rgb(250, 249, 245);
+ }
+ .table-striped2>tbody>tr:nth-of-type(even){
+   background-color:rgb(240, 236, 224);
+ }
+ .tbpustaka tr td ul{
+ 
+   padding:0;
+   margin-left:7px !important;
+   list-style: "-";
+ }
+ 
+ .tbpustaka tr td ul span{
+   position: relative;
+   left: 5px;
+ }
+ 
+ #table1 thead th {text-align: center;}
+ 
+ .judulpdf {
+   font-size:16px;
+   text-align:center;
+   margin-bottom:10px;
+ }
+ 
+ .kartuinfo {
+   background-color:#f7f8e749;
+   min-height:230px;
+   border:1px solid rgb(179, 137, 47); 
+   padding:10px;
+   font-size:14px;
+   margin-bottom:8px;
+ }
+ 
+ .text-center {
+   text-align:center;
+ }
+ 
+ .buttonUtama2 {
+   font-size:15px;
+   font-family:Arial;
+   min-width:121px;
+   height:40px;
+   border-width:1px;
+   color:#666666;
+   border-color:rgba(184, 182, 182, 1);
+   border-top-left-radius:6px;
+   border-top-right-radius:6px;
+   border-bottom-left-radius:6px;
+   border-bottom-right-radius:6px;
+   box-shadow:inset 0px 1px 0px 0px #ffffff;
+   text-shadow:inset 0px 1px 0px #ffffff;
+   background:linear-gradient(#f9f9f9, #e9e9e9);
+ }
+ 
+ .buttonUtama2:hover {
+   background: linear-gradient(#e9e9e9, #f9f9f9);
+ }
+ 
+ .buttonBack {
+   font-size:15px;
+   font-family:Arial;
+   height:40px;
+   border-width:1px;
+   color:#666666;
+   border-color:rgba(184, 182, 182, 1);
+   border-top-left-radius:6px;
+   border-top-right-radius:6px;
+   border-bottom-left-radius:6px;
+   border-bottom-right-radius:6px;
+   box-shadow:inset 0px 1px 0px 0px #ffffff;
+   text-shadow:inset 0px 1px 0px #ffffff;
+   background:linear-gradient(#f9f9f9, #e9e9e9);
+ }
+ 
+ .buttonBack:hover {
+   background: linear-gradient(#e9e9e9, #f9f9f9);
+ }
+ 
+ .buttonUtama {
+   font-size:15px;
+   font-family:Arial;
+   width:121px;
+   height:40px;
+   border-width:1px;
+   color:#666666;
+   border-color:rgba(184, 182, 182, 1);
+   border-top-left-radius:6px;
+   border-top-right-radius:6px;
+   border-bottom-left-radius:6px;
+   border-bottom-right-radius:6px;
+   box-shadow:inset 0px 1px 0px 0px #ffffff;
+   text-shadow:inset 0px 1px 0px #ffffff;
+   background:linear-gradient(#f9f9f9, #e9e9e9);
+ }
+ 
+ .buttonUtama:hover {
+   background: linear-gradient(#e9e9e9, #f9f9f9);
+ }
+               
+ 
+ .buttonTerpilih {
+   font-size:15px;
+   font-family:Arial;
+   width:121px;
+   height:40px;
+   border-width:1px;
+   color:rgba(148, 110, 25, 1);
+   border-color:rgba(165, 138, 56, 1);
+   border-top-left-radius:6px;
+   border-top-right-radius:6px;
+   border-bottom-left-radius:6px;
+   border-bottom-right-radius:6px;
+   box-shadow:inset 0px 1px 0px 0px #ffffff;
+   text-shadow:inset 0px 1px 0px #ffffff;
+   background:linear-gradient(#f9f9f9, rgba(241, 234, 225, 1));
+ }
+ 
+ .buttonAktif {
+   color:rgba(148, 110, 25, 1);
+   border-color:rgba(165, 138, 56, 1);
+   background:linear-gradient(#f9f9f9, rgba(241, 234, 225, 1));
+ }
+ 
+               
+ 
+ .kontakkami {
+   float: right;
+   font-family:Verdana, Geneva, Tahoma, sans-serif;
+   font-style: normal;
+   font-size: 12px;
+   text-align:right;
+   line-height: 16px;
+   color: #000;
+   z-index: 999;
+   background-color:rgb(217, 217, 217);
+   padding:20px;
+   margin-bottom:20px;
+   /* width:100%; */
+ }
+ 
+ .linkterkait {
+   margin-top:0px;
+   margin-bottom:0px;
+   padding:10px;
+   padding-left:70px;
+   font-family:Verdana, Geneva, Tahoma, sans-serif;
+   font-style: normal;
+   font-size: 12px;
+ }
+ 
+ .linkterkait ul{
+   margin:0;
+   padding:0px;
+   padding-left:10px;
+   list-style-type: '- ';
+   list-style: '- ';
+ }
+ 
+ #pengunjung {
+   margin-top:155px;
+   margin-bottom:5px;
+   padding-right:5px;
+   font-family:Verdana, Geneva, Tahoma, sans-serif;
+   font-style: normal;
+   font-size: 12px;
+ }
+ 
+ .infoyayasan {
+   color: rgb(60, 60, 60);
+   font-size:10pt;
+ }
+ 
+ .infoyayasan h5 {
+   color: rgb(60, 60, 60);
+   padding-top:10px;
+   margin:0px;
+   font-size:10pt;
+ }
+ 
+ .infoyayasan hr {
+   border-top: 1px solid black;
+   padding:0px;
+   margin:0px;
+ }
+ 
+ .mytable {
+   margin:30px;
+ }
+ 
+ .text-right {
+   text-align: right;
+ }
+ 
+ .textright10 {
+   text-align: right !important;
+   padding-right: 25px !important;
+ }
+ 
+ #table1 td {
+   padding-right: 15px;
+ }
+ 
+ #table1 thead th {
+   vertical-align: middle;
+   background-color: lightgrey;
+ }
+ 
+ .dttengah{
+   text-align: center;
+   width:20px;
+ }
+ 
+ .dttengahisi{
+   text-align: center;
+   width:20px;
+   padding-left:10px;
+ }
+ 
+ #page-container {
+   position: relative;
+   min-height: 78vh;
+ }
+ 
+ .tophome
+ {
+   margin-top:30px;
+ }
+ 
+ @media (max-width: 991px) {
+   .tophome {
+     margin-top: 0px;
+   }
+ }
+ 
+ #content-wrap {
+   padding-bottom: 2.5rem;    /* Footer height */
+ }
+ 
+ #footer {
+   position: absolute;
+   bottom: 0;
+   width: 100%;
+ }
+ 
+ .totaljendral {
+   text-align: center;
+   font-style: italic;
+   font-weight: 600;
+ }
+ 
+ .containerlogo {
+   margin-left:25px;
+ }
+ .breadcrumps {
+   margin:10px;
+ }
+ 
+ .breadcrumps a {
+   color:blue;
+ }
+ 
+ .link1 {
+     color: #3055be;
+   }
+ 
+ .link1:hover {
+     color: #3055be;
+   }
+ 
+ .link2 {
+     color: red;
+   }
+ 
+ .nodata {
+   color:red;
+   font-style:italic;
+   font-size:smaller;
+ } 
+ 
+ .combo-center {
+   text-align: center;
+   margin:auto;
+   margin-top:10px;
+ }
+ 
+ .combobox1 {
+   width: 200px;
+   height: 32px;
+   line-height: 32px;
+   padding:5px;
+ }
+ 
+ .tb_utama {
+   background: #ffffff;
+   background-image: -webkit-linear-gradient(top, #ffffff, #b8b8b8);
+   background-image: -moz-linear-gradient(top, #ffffff, #b8b8b8);
+   background-image: -ms-linear-gradient(top, #ffffff, #b8b8b8);
+   background-image: -o-linear-gradient(top, #ffffff, #b8b8b8);
+   background-image: linear-gradient(to bottom, #ffffff, #b8b8b8);
+   -webkit-border-radius: 7;
+   -moz-border-radius: 7;
+   border-radius: 7px;
+   font-family: Arial;
+   color: #000000;
+   font-size: 16px;
+   padding: 2px 10px 2px 10px;
+   border: solid #2a2d30 1px;
+   text-decoration: none;
+ }
+ 
+ .tb_utama:hover {
+   background: #cfcfcf;
+   text-decoration: none;
+ }
+ 
+ .judulatas {
+   font-weight:bold;
+   font-size:20px;
+   text-align: center;
+   margin-top: 10px;
+   margin-bottom: 5px;
+ } 
+ 
+ #maps {
+   height: 320px;
+ }
+ 
+ .tabs {
+   position: relative;
+   display: flex;
+   min-height: 300px;
+   border-radius: 8px 8px 0 0;
+   overflow: hidden;
+   margin: 10px;
+   min-height: 400px;
+ }
+ 
+ .tabby-tab {
+   flex: 1;
+ }
+ 
+ .tabby-tab label {
+   display: block;
+   box-sizing: border-box;
+   /* tab content must clear this */
+     height: 40px;
+   
+   padding: 10px;
+   text-align: center;
+   background: #d7d7d7;
+   cursor: pointer;
+   transition: background 0.5s ease;
+   
+ }
+ 
+ .tabby-tab label:hover {
+   background: #c5c5c5;
+ }
+ 
+ .tabby-content {
+   position: absolute;
+   
+   left: 0; bottom: 0; right: 0;
+   /* clear the tab labels */
+     top: 40px; 
+   
+   padding: 20px;
+   border-radius: 0 0 8px 8px;
+   background: #eaeaee;
+   
+   transition: 
+     opacity 0.8s ease,
+     transform 0.8s ease   ;
+   
+   /* show/hide */
+     opacity: 0;
+     transform: scale(0.1);
+     transform-origin: top left;
+   
+ }
+ 
+ .tabby-content img {
+   float: left;
+   margin-right: 20px;
+   border-radius: 8px;
+ }
+ 
+ .tabby-tab [type=radio] { display: none; }
+ [type=radio]:checked ~ label {
+   background: #eaeaee;
+   z-index: 2;
+ }
+ 
+ [type=radio]:checked ~ label ~ .tabby-content {
+   z-index: 1;
+   
+   /* show/hide */
+     opacity: 1;
+     transform: scale(1);
+ }
+ 
+ /* BREAKPOINTS ----- */
+ @media screen and (max-width: 767px) {
+   .tabs { min-height: 400px;}
+ }
+ 
+ @media screen and (max-width: 480px) {
+   .tabs { min-height: 580px; }
+   .tabby-tab label { 
+     height: 60px;
+   }
+   .tabby-content { top: 60px; }
+   .tabby-content img {
+     float: none;
+     margin-right: 0;
+     margin-bottom: 20px;
+   }
+ }

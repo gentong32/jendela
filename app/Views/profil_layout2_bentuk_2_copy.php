@@ -8,6 +8,14 @@
 
 $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akreditasi->total_tidak+$akreditasi->total_ter+$akreditasi->total_c+$akreditasi->total_b+$akreditasi->total_a;
 
+$totalsemua = 0;
+
+$kolom=array();
+foreach ($bentuks as $bentuk)
+{
+    $kolom[$bentuk] = 0;
+}
+
 ?>
 <section>
     <div class="kontainer">
@@ -109,6 +117,11 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
                         <option value="3">Guru</option>
                 </select>
             </div>
+            <div id="opsijenjang" class="copsi" style="display:none">
+                <select style="padding:5px" name="ijenjang" id="ijenjang">
+                        <option value="1">PAUD</option>
+                </select>
+            </div>
         </div>
 
         <!-- //////////////////////////////////// -->
@@ -151,92 +164,74 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
             </nav>
             
             <div class="tab-content" id="nav-tabContent">
-                <div
-                    class="tab-pane fade show active"
-                    id="nav-sek_akreditasi"
-                    role="tabpanel"
-                    aria-labelledby="nav-sek_akreditasi-tab">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <td width="30%">
-                                    <b>Akreditasi</b>
-                                </td>
-                                <td align="right" width="30%">
-                                    <b>Jumlah</b>
-                                </td>
-                                <td align="right" width="30%"></td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    A
-                                </td>
-                                <td align="right">
-                                <?=number_format($datasekolahan->t_akreditasi_a,0,",",".")?>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    B
-                                </td>
-                                <td align="right">
-                                <?=number_format($datasekolahan->t_akreditasi_b,0,",",".")?>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    C
-                                </td>
-                                <td align="right">
-                                <?=number_format($datasekolahan->t_akreditasi_c,0,",",".")?>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Terakreditasi
-                                </td>
-                                <td align="right">
-                                <?=number_format($datasekolahan->t_terakreditasi,0,",",".")?>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Tidak Terakreditasi
-                                </td>
-                                <td align="right">
-                                <?=number_format($datasekolahan->t_tidak_terakreditasi,0,",",".")?>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Belum Terakreditasi
-                                </td>
-                                <td align="right">
-                                <?=number_format($datasekolahan->t_belum_terakreditasi,0,",",".")?>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>Total</b>
-                                </td>
-                                <td style="padding-left:100px;" align="right">
-                                <b><?=number_format($datasekolahan->total_sekolah,0,",",".")?></b>
-                                </td>
-                                <td></td>
-                            </tr>
-
-                        </tbody>
-
-                    </table>
-                </div>
+            <div class="tab-pane fade show active "
+                id="nav1"
+                role="tabpanel"
+                aria-labelledby="nav1-tab">
+                <table class="table table-striped" id="table1">
+                    <thead>
+                        <tr>
+                            <td>
+                                <b>Akreditasi</b>
+                            </td>
+                            <td align="right">
+                                <b>Jumlah</b>
+                            </td><td width="100px"><b>TK</b></td><td width="100px"><b>KB</b></td><td width="100px"><b>TPA</b></td><td width="100px"><b>SPS</b></td><td width="100px"><b>RA</b></td><td width="100px"><b>Taman Seminari</b></td><td width="100px"><b>SPK KB</b></td><td width="100px"><b>PAUDQ</b></td><td width="100px"><b>SPK PG</b></td><td width="100px"><b>SPK TK</b></td><td width="100px"><b>Pratama W P</b></td><td width="100px"><b>Nava Dhammasekha</b></td></tr>
+                    </thead>
+                    <tbody><tr>
+                            <td>
+                                A
+                            </td>
+                            <td align="right">76</td><td>62</td><td>9</td><td>0</td><td>0</td><td>2</td><td>0</td><td>0</td><td>0</td><td>1</td><td>2</td><td>0</td><td>0</td>
+                        </tr><tr>
+                            <td>
+                                B
+                            </td>
+                            <td align="right">76</td><td>55</td><td>8</td><td>0</td><td>3</td><td>10</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                        </tr><tr>
+                            <td>
+                                C
+                            </td>
+                            <td align="right">26</td><td>12</td><td>5</td><td>0</td><td>4</td><td>5</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                        </tr><tr>
+                            <td>
+                                Terakreditasi
+                            </td>
+                            <td align="right">2</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                        </tr><tr>
+                            <td>
+                                Belum Terakreditasi
+                            </td>
+                            <td align="right">823</td><td>390</td><td>265</td><td>3</td><td>47</td><td>89</td><td>0</td><td>0</td><td>29</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                        </tr><tr>
+                            <td>
+                                Tidak Terakreditasi
+                            </td>
+                            <td align="right">6</td><td>0</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                        </tr></tbody>
+                </table>
+            </div><div class="tab-pane fade  "
+                id="nav2"
+                role="tabpanel"
+                aria-labelledby="nav2-tab">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <td>
+                                <b>Kondisi Ruang Kelas</b>
+                            </td>
+                            <td align="right">
+                                <b>Jumlah</b>
+                            </td><td width="100px"><b>TK</b></td><td width="100px"><b>KB</b></td><td width="100px"><b>TPA</b></td><td width="100px"><b>SPS</b></td><td width="100px"><b>RA</b></td><td width="100px"><b>Taman Seminari</b></td><td width="100px"><b>SPK KB</b></td><td width="100px"><b>PAUDQ</b></td><td width="100px"><b>SPK PG</b></td><td width="100px"><b>SPK TK</b></td><td width="100px"><b>Pratama W P</b></td><td width="100px"><b>Nava Dhammasekha</b></td><td width="100px"><b>TK</b></td><td width="100px"><b>KB</b></td><td width="100px"><b>TPA</b></td><td width="100px"><b>SPS</b></td><td width="100px"><b>RA</b></td><td width="100px"><b>Taman Seminari</b></td><td width="100px"><b>SPK KB</b></td><td width="100px"><b>PAUDQ</b></td><td width="100px"><b>SPK PG</b></td><td width="100px"><b>SPK TK</b></td><td width="100px"><b>Pratama W P</b></td><td width="100px"><b>Nava Dhammasekha</b></td></tr>
+                    </thead>
+                    <tbody><tr>
+                            <td>
+                                Kondisi Lab IPA
+                            </td>
+                            <td align="right">76</td><td>62</td><td>9</td><td>0</td><td>0</td><td>2</td><td>0</td><td>0</td><td>0</td><td>1</td><td>2</td><td>0</td><td>0</td>
+                        </tr></tbody>
+                </table>
+            </div>
                 <div
                     class="tab-pane fade"
                     id="nav-sek_status"
@@ -2101,8 +2096,34 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
 <?= $this->section('scriptpeta') ?>
 <script>
     $(document).ready(function () {
-        $("#isearch").autocomplete({
 
+        // $('#table1').DataTable({
+        //     responsive: true,
+        //     columnDefs: [
+        //         { responsivePriority: 1, targets: 1 },
+        //     ]
+        // });
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+        });
+
+        $('#table1').DataTable({
+            scrollY: "300px",
+            scrollX: true,
+            scrollCollapse: true,
+            searching: false, paging: false, info: false,
+            fixedColumns: {
+                left: 2
+            },
+            columnDefs: [
+            { "width": "80px", "targets": 0},
+            { "width": "50px", "targets": [1,2,3,4,5,6,7,8,9,10,11,12]},
+            ]
+        });
+
+        
+
+        $("#isearch").autocomplete({
             source: function (request, response) {
                 // Fetch data
                 var csrfName = $('.txt_csrfname').attr('name'); // CSRF Token name
@@ -2170,6 +2191,7 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
     }
 
     $('#idata').on('change', function () {
+        $('#opsijenjang').hide();
         let sel = document.getElementById("idata");
         if ($('#idata option').length==3)
         sel.remove(0);
@@ -2195,20 +2217,31 @@ $total_all_akreditasi=$akreditasi->total_null+$akreditasi->total_belum+$akredita
 
     $('#idata2').on('change', function () {
         tampilkan();
+        $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
     });
 
     function tampilkan()
     {
-        for (a=1;a<=1;a++)
-        {
-            for (b=1;b<=3;b++)
-            {
-                $('#tampil_'+a+'_'+b).hide();
-            }
-        }
-        
-        $('#tampil_'+$('#idata').val()+'_'+$('#idata2').val()).show();
+        var string = '';
+        $.ajax({
+                    url: "<?=site_url('home/grabdata')?>",
+                    type: 'get',
+                    dataType: "json",
+                    data: {
+                        id: 1
+                    },
+                    success: function (result) {
+                        console.log(result.konten); 
+                        $('#nav-tab').html(result.nav);
+                        $('#nav-tabContent').html(result.konten);
+                        $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+                    }
+                });
+
+        $('#tampil_1_1').show();
+
     };
+
 
 </script>
 

@@ -15,20 +15,33 @@
         <link href="<?=site_url().'template/css';?>/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
         <link href="<?=base_url()?>/leaflet/leaflet.css?v1.0" rel="stylesheet" >
-        <link href="<?=site_url().'template/css';?>/gentongstyle.css?v1.5" rel="stylesheet">
+        <link href="<?=site_url().'template/css';?>/gentongstyle.css?v2.4" rel="stylesheet">
+         <!-- DataTables -->
+        <link rel="stylesheet" href="<?=base_url()?>/template/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="<?=base_url()?>/template/css/responsive.dataTables.min.css">
+        <link rel="stylesheet" href="<?=base_url()?>/template/css/fixedColumns.dataTables.min.css">
     </head>
     
     <body>
 
         <header>
             <div class="header1">
-                <img height="70" width="70" src="<?=site_url().'template/images/';?>logotutwuri.png" alt="Pusdatin">
-                <img height="60" src="<?=site_url().'template/images/';?>logoteks.png?v1.0" alt="Pusdatin">
+                <div class="dlogo">
+                    <img class="imgtutwuri" src="<?=site_url().'template/images/';?>logotutwuri.png" alt="Tutwuri">
+                    <img class="imgteks" src="<?=site_url().'template/images/';?>logoteks.png?v1.3" alt="Pusdatin">
+                </div>
             </div>
             <div class="menu1">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#">HOME</a>
+                        <?php
+                        if ($level<2)
+                        {?>
+                            <a class="nav-link" href="<?=site_url("home")?>">HOME</a>
+                        <?php } else {?>
+                            <a class="nav-link" href="<?=site_url('home/data/').substr($kode,0,2).'0000/1'?>">Kembali</a>
+                        <?php } ?>
+                        
                     </li>
                     <!-- <li class="nav-item">
                         <a class="nav-link" href="#" onclick="showinputkota();" tabindex="-1" aria-disabled="true">Ganti Kota</a>
@@ -36,18 +49,27 @@
                 </ul>
             </div>
         </header>
-
-        <main style="margin-top:20px; margin-bottom:20px; margin-left:auto; margin-right:auto; max-width:90%;">
+        
+        <?php
+        if ($level<2)
+        {?>
+        <center>
+         <?php } ?>
+        <main style="margin-top:20px; margin-bottom:20px; margin-left:auto; margin-right:auto; max-width:98%;">
 
             <?=$this->renderSection('section')?>
 
         </main>
-
+        <?php
+        if ($level<2)
+        {?>
+        </center>
+        <?php } ?>
         <footer>
             <div class="footer1">
                 <div class="kontakkami">
-                    <h5>Hubungi Kami</h5>
-                    Layanan Terpadu Kemendikbudristek<br>
+                    <!-- <h5>Hubungi Kami</h5> -->
+                    <b>Layanan Terpadu Kemendikbudristek</b><br>
                     Gedung C Lantai 1 Kompleks Kemendikbudristek<br>
                     Senayan Jakarta, 10270<br>
                     Contact Center : 177<br>
@@ -70,6 +92,13 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
         <script src="<?=base_url()?>/leaflet/leaflet.js?v1.0"></script>
         <?=$this->renderSection('scriptpeta')?>
+
+        <script src="<?=base_url()?>/template/js/jquery.dataTables.min.js"></script>
+        <script src="<?=base_url()?>/template/js/dataTables.responsive.min.js"></script>
+        <script src="<?=base_url()?>/template/js/dataTables.fixedColumns.min.js"></script>
+        <script src="<?=base_url()?>/template/js/dataTables.bootstrap.min.js"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     </body>
 </html>
