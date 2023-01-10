@@ -708,4 +708,22 @@ class DataModelJendela extends Model
 
         return $query;
     }
+
+    public function gettotaljenjang($bentuks)
+    {
+        $kumpulanin = "";
+        foreach ($bentuks as $row)
+        {
+            $kumpulanin = $kumpulanin . "'" . $row . "',";
+        }
+        $kumpulanin = substr($kumpulanin, 0, -1);
+
+        $sql = "select sum(sekolah_negeri+sekolah_swasta) as totalsekolah 
+        FROM [Dataprocess].[jendela].[sekolah]
+        where kode_wilayah = '286300' AND bentuk_pendidikan in (".$kumpulanin.")";
+
+        $query = $this->db->query($sql);
+
+        return $query;
+    }
 }

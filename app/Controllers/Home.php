@@ -11,7 +11,8 @@ class Home extends BaseController
 
     public function index()
     {
-        $this->data();
+        // home/data/286300/2
+        $this->data("286300","2");
     }
 
     public function tes()
@@ -743,6 +744,17 @@ class Home extends BaseController
         }
 
         $stringnav = "";
+
+        $jendraljenjang = $jendral;
+
+        if ($bentuks!="semua")
+        {
+            $gettotaljenjang = $this->datamodeljendela->gettotaljenjang($bentuks);
+            $gettotaljenjang = $gettotaljenjang->getRow();
+            $totalsekolah = $gettotaljenjang->totalsekolah;
+            $jendraljenjang = $totalsekolah;
+        }
+
         ////////////////////////////////////////////////////
         $m=0;
         for ($a=$bawal;$a<=$bakhir;$a++)
@@ -938,16 +950,16 @@ class Home extends BaseController
                 ////////////////    hitung jumlah   -----------------
                 if ($adaresidu[$b][$b2]=="yes")
                 {
-                    $totaljendral = '<td align="right">'.number_format($jendral,0,",",".").'&nbsp;&nbsp;&nbsp;</td>';
+                    $totaljendral = '<td align="right">'.number_format($jendraljenjang,0,",",".").'&nbsp;&nbsp;&nbsp;</td>';
                 }
                 else
                 {
                     $totaljendral = '<td align="right">'.number_format($totsemuakolom,0,",",".").'&nbsp;&nbsp;&nbsp;</td>';
                 }
 
-                if ($jendral!=$totsemuakolom && $adaresidu[$b][$b2]=="yes")
+                if ($jendraljenjang!=$totsemuakolom && $adaresidu[$b][$b2]=="yes")
                 {
-                    $residu = $jendral-$totsemuakolom;
+                    $residu = $jendraljenjang-$totsemuakolom;
                     $totalresidu = '<td align="right">'.number_format($residu,0,",",".").'&nbsp;&nbsp;&nbsp;</td>';
                     
                     $baristabel = $baristabel.'<tr>
@@ -1035,6 +1047,18 @@ class Home extends BaseController
         // echo "</pre>";
 
 		echo json_encode($datanya);
+    }
+
+    public function tesgrab()
+    {
+        $paud = array('TK','KB','TPA','SPS','RA','Taman Seminari','SPK KB','PAUDQ','SPK PG','SPK TK','Pratama W P','Nava Dhammasekha');
+        $bentuks=$paud;
+        $gettotaljenjang = $this->datamodeljendela->gettotaljenjang($bentuks);
+        $gettotaljenjang = $gettotaljenjang->getRow();
+        $totalsekolah = $gettotaljenjang->totalsekolah;
+        // $gettotaljenjang = $gettotaljenjang->getResult();
+        // print_r($gettotaljenjang->getResult());
+        //$jendraljenjang = $gettotaljenjang->totalsekolah;
     }
 
 }
