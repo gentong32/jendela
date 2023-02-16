@@ -156,7 +156,7 @@ class DataModelJendela extends Model
         }
 
         $sql = "SELECT ".$thesum." max(kode_wilayah) as kode_wilayah  
-        from dataprocess.jendela.".$entitas." where kode_wilayah = :kodewilayah: ";
+        from dataprocess.jendela.".$entitas." where semester_id='20221' AND kode_wilayah = :kodewilayah: ";
 
         // echo $sql;
 
@@ -233,7 +233,7 @@ class DataModelJendela extends Model
         }
 
         $sql = "SELECT ".$thesum." max(kode_wilayah) as kode_wilayah  
-        from dataprocess.jendela.".$entitas." where kode_wilayah = :kodewilayah: ";
+        from dataprocess.jendela.".$entitas." where semester_id='20221' AND kode_wilayah = :kodewilayah: ";
 
         // echo $sql;
 
@@ -253,8 +253,10 @@ class DataModelJendela extends Model
         sum(akreditasi_tidak_terakreditasi) as t_tidak_terakreditasi, 
         sum(akreditasi_belum_terakreditasi) as t_belum_terakreditasi, 
         sum(akreditasi_terakreditasi) as t_terakreditasi,
+        sum(akreditasi_sertifikat_kadaluarsa) as t_kadaluarsa,
+        sum(akreditasi_residu) as t_akreditasi_residu,
         sum (akreditasi_a+akreditasi_b+akreditasi_c+akreditasi_tidak_terakreditasi
-        +akreditasi_belum_terakreditasi+akreditasi_terakreditasi) as total_sekolah,
+        +akreditasi_belum_terakreditasi+akreditasi_terakreditasi+akreditasi_sertifikat_kadaluarsa) as total_sekolah,
         sum([ruang_kelas_baik]) as kelas_baik,
         sum([ruang_kelas_rusak_ringan]) as kelas_r_ringan,
         sum([ruang_kelas_rusak_sedang]) as kelas_r_sedang,
@@ -263,8 +265,10 @@ class DataModelJendela extends Model
         +[ruang_kelas_rusak_berat]) as total_ruang_kelas,
         sum([sumber_listrik_ada]) as t_listrikada,
         sum([sumber_listrik_tidak_ada]) as t_listriktakada,
+        sum([sumber_listrik_residu]) as t_listrikresidu,
         sum([akses_internet_ada]) as t_internetada,
         sum([akses_internet_tidak_ada]) as t_internettakada,
+        sum([akses_internet_residu]) as t_internetresidu,
         sum([sumber_air_kemasan]) as t_airkemasan,
         sum([sumber_air_PAM]) as t_airpam,
         sum([sumber_air_pompa]) as t_airpompa,
@@ -273,6 +277,7 @@ class DataModelJendela extends Model
         sum([sumber_air_mata_air_terlindungi]) as t_airmataair,
         sum([sumber_air_sungai]) as t_airsungai,
         sum([sumber_air_lainnya]) as t_airlain,
+        sum([sumber_air_residu]) as t_airresidu,
         sum([kecukupan_air_cukup_sepanjang_waktu]) as t_aircukup,
         sum([kecukupan_air_tidak_cukup_sepanjang_waktu]) as t_airtakcukup,
         sum([kecukupan_air_blm_mengisi]) as t_airbelum,
@@ -338,17 +343,18 @@ class DataModelJendela extends Model
         sum([ruang_uks_rusak_ringan]) as t_uksr_ringan,
         sum([ruang_uks_rusak_sedang]) as t_uksr_sedang,
         sum([ruang_uks_rusak_berat]) as t_uksr_berat,
-        sum([waktu_penyelenggaran_pagi_6_hari]) as t_waktu_pagi_6hari,
-        sum([waktu_penyelenggaran_siang_6_hari]) as t_waktu_siang_6hari,
-        sum([waktu_penyelenggaran_double_shift_6_hari]) as t_waktu_dobel_6hari,
-        sum([waktu_penyelenggaran_sore_6_hari]) as t_waktu_sore_6hari,
-        sum([waktu_penyelenggaran_malam_6_hari]) as t_waktu_malam_6hari,
-        sum([waktu_penyelenggaran_sehari_penuh_5_hari]) as t_waktu_penuh_5hari,
-        sum([waktu_penyelenggaran_sehari_penuh_6_hari]) as t_waktu_penuh_6hari,
-        sum([waktu_penyelenggaran_sehari_penuh_3_hari]) as t_waktu_penuh_3hari,
+        sum([waktu_penyelenggaraan_pagi_6_hari]) as t_waktu_pagi_6hari,
+        sum([waktu_penyelenggaraan_siang_6_hari]) as t_waktu_siang_6hari,
+        sum([waktu_penyelenggaraan_double_shift_6_hari]) as t_waktu_dobel_6hari,
+        sum([waktu_penyelenggaraan_sore_6_hari]) as t_waktu_sore_6hari,
+        sum([waktu_penyelenggaraan_malam_6_hari]) as t_waktu_malam_6hari,
+        sum([waktu_penyelenggaraan_sehari_penuh_5_hari]) as t_waktu_penuh_5hari,
+        sum([waktu_penyelenggaraan_sehari_penuh_6_hari]) as t_waktu_penuh_6hari,
+        sum([waktu_penyelenggaraan_sehari_penuh_3_hari]) as t_waktu_penuh_3hari,
+        sum([waktu_penyelenggaraan_residu]) as t_waktu_residu,
         sum([mbs_ya]) as t_mbs_ya,
         sum([mbs_tidak]) as t_mbs_tidak 
-        from dataprocess.jendela.sekolah where kode_wilayah = :kodewilayah: ";
+        from dataprocess.jendela.sekolah where semester_id = '20221' AND kode_wilayah = :kodewilayah: ";
 
         // where (bentuk_pendidikan = 'SPS' OR bentuk_pendidikan = 'TK' OR 
         // bentuk_pendidikan = 'KB' OR bentuk_pendidikan = 'MA' OR
@@ -709,7 +715,7 @@ class DataModelJendela extends Model
         return $query;
     }
 
-    public function gettotaljenjang($bentuks)
+    public function gettotaljenjang($bentuks,$kodewilayah)
     {
         $kumpulanin = "";
         foreach ($bentuks as $row)
@@ -720,9 +726,11 @@ class DataModelJendela extends Model
 
         $sql = "select sum(sekolah_negeri+sekolah_swasta) as totalsekolah 
         FROM [Dataprocess].[jendela].[sekolah]
-        where kode_wilayah = '286300' AND bentuk_pendidikan in (".$kumpulanin.")";
+        where kode_wilayah = :kodewilayah: AND semester_id='20221' AND bentuk_pendidikan in (".$kumpulanin.")";
 
-        $query = $this->db->query($sql);
+        $query = $this->db->query($sql, [
+            'kodewilayah'  => $kodewilayah
+        ]);
 
         return $query;
     }

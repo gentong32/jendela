@@ -273,7 +273,9 @@ class Home extends BaseController
         $judultabel[$urutan][1][5] = 'Terakreditasi';
         $judultabel[$urutan][1][6] = 'Belum Terakreditasi';
         $judultabel[$urutan][1][7] = 'Tidak Terakreditasi';
-        $fields[$urutan][1] = array ('akreditasi_a','akreditasi_b','akreditasi_c','akreditasi_tidak_terakreditasi','akreditasi_belum_terakreditasi','akreditasi_terakreditasi');
+        $judultabel[$urutan][1][8] = 'Sertifikat Kadaluarsa';
+        // $judultabel[$urutan][1][9] = 'Residu';
+        $fields[$urutan][1] = array ('akreditasi_a','akreditasi_b','akreditasi_c','akreditasi_tidak_terakreditasi','akreditasi_belum_terakreditasi','akreditasi_terakreditasi','akreditasi_sertifikat_kadaluarsa');
         
         $urutan=2;
         $stokjudul[$urutan] = 'Ruang Kelas dan Lab';
@@ -369,21 +371,23 @@ class Home extends BaseController
 
         $urutan=3;
         $stokjudul[$urutan] = 'Sarana dan Prasarana';
-        $adaresidu[$urutan][1] = "yes";
+        $adaresidu[$urutan][1] = "no";
         $judultabel[$urutan][1][0] = "SUMBER LISTRIK";
         $judultabel[$urutan][1][1] = "Status";
         $judultabel[$urutan][1][2] = "Ada";
         $judultabel[$urutan][1][3] = "Tidak Ada";
-        $fields[$urutan][1] = array ('sumber_listrik_ada','sumber_listrik_tidak_ada');
+        $judultabel[$urutan][1][4] = "Residu";
+        $fields[$urutan][1] = array ('sumber_listrik_ada','sumber_listrik_tidak_ada','sumber_listrik_residu');
 
-        $adaresidu[$urutan][2] = "yes";
+        $adaresidu[$urutan][2] = "no";
         $judultabel[$urutan][2][0] = "AKSES INTERNET";
         $judultabel[$urutan][2][1] = "Status";
         $judultabel[$urutan][2][2] = "Ada";
         $judultabel[$urutan][2][3] = "Tidak Ada";
-        $fields[$urutan][2] = array ('akses_internet_ada','akses_internet_tidak_ada');
+        $judultabel[$urutan][2][4] = "Residu";
+        $fields[$urutan][2] = array ('akses_internet_ada','akses_internet_tidak_ada','akses_internet_residu');
 
-        $adaresidu[$urutan][3] = "yes";
+        $adaresidu[$urutan][3] = "no";
         $judultabel[$urutan][3][0] = "SUMBER AIR";
         $judultabel[$urutan][3][1] = "Sumber";
         $judultabel[$urutan][3][2] = "Kemasan";
@@ -394,15 +398,17 @@ class Home extends BaseController
         $judultabel[$urutan][3][7] = "Mata Air Terlindungi";
         $judultabel[$urutan][3][8] = "Sungai";
         $judultabel[$urutan][3][9] = "Lainnya";
-        $fields[$urutan][3] = array ('sumber_air_kemasan','sumber_air_PAM','sumber_air_pompa','sumber_air_hujan','sumber_air_sumur_terlindungi','sumber_air_mata_air_terlindungi','sumber_air_sungai','sumber_air_lainnya');
+        $judultabel[$urutan][3][10] = "Residu";
+        $fields[$urutan][3] = array ('sumber_air_kemasan','sumber_air_PAM','sumber_air_pompa','sumber_air_hujan','sumber_air_sumur_terlindungi','sumber_air_mata_air_terlindungi','sumber_air_sungai','sumber_air_lainnya','sumber_air_residu');
 
-        $adaresidu[$urutan][4] = "yes";
+        $adaresidu[$urutan][4] = "no";
         $judultabel[$urutan][4][0] = "KECUKUPAN AIR";
         $judultabel[$urutan][4][1] = "Kondisi";
         $judultabel[$urutan][4][2] = "Cukup Sepanjang Waktu";
         $judultabel[$urutan][4][3] = "Tidak Cukup Sepanjang Waktu";
         $judultabel[$urutan][4][4] = "Belum Mengisi Data";
-        $fields[$urutan][4] = array ('kecukupan_air_cukup_sepanjang_waktu','kecukupan_air_tidak_cukup_sepanjang_waktu','kecukupan_air_blm_mengisi');
+        $judultabel[$urutan][4][5] = "Residu";
+        $fields[$urutan][4] = array ('kecukupan_air_cukup_sepanjang_waktu','kecukupan_air_tidak_cukup_sepanjang_waktu','kecukupan_air_blm_mengisi','kecukupan_air_residu');
 
         $adaresidu[$urutan][5] = "no";
         $judultabel[$urutan][5][0] = "KONDISI WC GURU";
@@ -424,7 +430,7 @@ class Home extends BaseController
 
         $urutan=4;
         $stokjudul[$urutan] = 'Waktu Penyelenggaraan';
-        $adaresidu[$urutan][1] = "yes";
+        $adaresidu[$urutan][1] = "no";
         $judultabel[$urutan][1][0] = "PENYELENGGARAAN";
         $judultabel[$urutan][1][1] = "Waktu";
         $judultabel[$urutan][1][2] = "Pagi 6 hari";
@@ -435,11 +441,12 @@ class Home extends BaseController
         $judultabel[$urutan][1][7] = "Sehari penuh 5 hari";
         $judultabel[$urutan][1][8] = "Sehari penuh 6 hari";
         $judultabel[$urutan][1][9] = "Sehari penuh 3 hari";
-        $fields[$urutan][1] = array ('waktu_penyelenggaran_pagi_6_hari','waktu_penyelenggaran_siang_6_hari','waktu_penyelenggaran_double_shift_6_hari','waktu_penyelenggaran_sore_6_hari','waktu_penyelenggaran_malam_6_hari','waktu_penyelenggaran_sehari_penuh_5_hari','waktu_penyelenggaran_sehari_penuh_6_hari','waktu_penyelenggaran_sehari_penuh_3_hari');
+        $judultabel[$urutan][1][10] = "Residu";
+        $fields[$urutan][1] = array ('waktu_penyelenggaraan_pagi_6_hari','waktu_penyelenggaraan_siang_6_hari','waktu_penyelenggaraan_double_shift_6_hari','waktu_penyelenggaraan_sore_6_hari','waktu_penyelenggaraan_malam_6_hari','waktu_penyelenggaraan_sehari_penuh_5_hari','waktu_penyelenggaraan_sehari_penuh_6_hari','waktu_penyelenggaraan_sehari_penuh_3_hari','waktu_penyelenggaraan_residu');
 
         $urutan=5;
         $stokjudul[$urutan] = 'Status';
-        $adaresidu[$urutan][1] = "yes";
+        $adaresidu[$urutan][1] = "no";
         $judultabel[$urutan][1][0] = "STATUS SEKOLAH";
         $judultabel[$urutan][1][1] = "Status";
         $judultabel[$urutan][1][2] = "Negeri";
@@ -749,7 +756,7 @@ class Home extends BaseController
 
         if ($bentuks!="semua")
         {
-            $gettotaljenjang = $this->datamodeljendela->gettotaljenjang($bentuks);
+            $gettotaljenjang = $this->datamodeljendela->gettotaljenjang($bentuks,$kodewilayah);
             $gettotaljenjang = $gettotaljenjang->getRow();
             $totalsekolah = $gettotaljenjang->totalsekolah;
             $jendraljenjang = $totalsekolah;
@@ -928,6 +935,9 @@ class Home extends BaseController
                 $baristabel = "";
                 for($c=2;$c<sizeof($judultabel[$b][$b2]);$c++)
                 {
+                    if ($judultabel[$b][$b2][$c]=="Residu")
+                    $judultabel[$b][$b2][$c]="<b>Residu</b>";
+
                     if ($bentuks=="semua")
                         {
                             $baristabel = $baristabel.'<tr>
