@@ -23,6 +23,7 @@ class Home extends BaseController
 
     public function data($kode='000000', $level=0, $status="all")
     {
+        
         $data['tingkat'] = "semua";
         $data['kode'] = $kode;
         $data['level'] = $level;
@@ -37,6 +38,8 @@ class Home extends BaseController
             $data['namapilihan'] = strToUpper($resultquery[0]->nama);
         }
 
+       
+
         $namalevel1 = $this->datamodeljendela->getNamaPilihan(substr($kode,0,2)."0000");
         $result1 = $namalevel1->getResult();
         $data['namalevel1'] = $result1[0]->nama;
@@ -47,7 +50,8 @@ class Home extends BaseController
         $result3 = $namalevel3->getResult();
         $data['namalevel3'] = $result3[0]->nama;
 
-        
+       
+
         if ($level<2) {
             $query = $this->datamodeljendela->getSemuaTotalSekolah($kode,$level);
             $dafsekolah=$query->getResult();
@@ -58,8 +62,7 @@ class Home extends BaseController
             $query4 = $this->datamodeljendela->getSemuaTotalTendik($kode,$level);
             $daftendik=$query4->getResult();
             $query5 = $this->datamodeljendela->getSemuaTotalKepsek($kode,$level);
-            $dafkepsek=$query5->getResult();
-            
+            $dafkepsek=$query5->getResult();           
             
             $datanas = array();
             foreach ($dafsekolah as $row){
@@ -102,14 +105,16 @@ class Home extends BaseController
                 $datanas[$rowclear] = array_merge($datanas[$rowclear],["jml_kepsek_negeri" =>$row->jml_kepsek_negeri, "jml_kepsek_swasta" =>$row->jml_kepsek_swasta]);
             }
 
-            // echo var_dump($datanas);
-            // die();
+            echo var_dump($datanas);
+            die();
 
             $data['datanas'] = $datanas;
+         
             echo view('data_nasional', $data);
         }
         else
         {
+            
             $this->profil($kode); 
         }
     }
@@ -119,19 +124,22 @@ class Home extends BaseController
         if ($kodewilayah==null)
         $kodewilayah = $_GET['kode_wilayah'];
         
+        $tahunajaran = $this->gettahunajar();
+        $data['tahunajar'] = $tahunajaran;
+
         $getkecamatan = $this->datamodeljendela->getKecamatan($kodewilayah);
         $getkelurahan = $this->datamodeljendela->getKelurahan($kodewilayah);
         $getkabkot = $this->datamodeljendela->getKabKot($kodewilayah)->getRow();
-        $getguru = $this->datamodeljendela->getTotalGuru($kodewilayah);
-        $gettendik = $this->datamodeljendela->getTotalTendik($kodewilayah);
-        $getkepsek = $this->datamodeljendela->getTotalKepsek($kodewilayah);
-        $getcagarbudaya = "0";//$this->datamodeljendela->getGuru($kodewilayah);
-        $getmuseum = "0";//$this->datamodeljendela->getGuru($kodewilayah);
+        $getguru = $this->datamodeljendela->getTotalGuru($kodewilayah, $tahunajaran);
+        $gettendik = $this->datamodeljendela->getTotalTendik($kodewilayah, $tahunajaran);
+        $getkepsek = $this->datamodeljendela->getTotalKepsek($kodewilayah, $tahunajaran);
+        $getcagarbudaya = $this->datamodeljendela->getCagarBudaya($kodewilayah);
+        $getlembaga = $this->datamodeljendela->getLembaga($kodewilayah);
         $get_sekolah_akreditasi = $this->datamodeljendela->get_sekolah_akreditasi($kodewilayah);
         $get_sekolah_status = $this->datamodeljendela->get_sekolah_status($kodewilayah);
         
         $getkoordinat = $this->datamodeljendela->getkoordinatgeo($kodewilayah);
-        
+
         $datakebupaten=[];
         $datakebupaten['nama'] = $getkabkot->nama;
         $datakebupaten['jumlah_kecamatan'] = sizeof($getkecamatan->getResult());
@@ -139,15 +147,64 @@ class Home extends BaseController
         $datakebupaten['jumlah_guru'] = $getguru->total_guru+$gettendik->total_tendik;
         $datakebupaten['jumlah_kepsek'] = $getkepsek->total_kepsek;
         $datakebudayaan=[];
-        $datakebudayaan['jumlah_cagarbudaya'] = $getcagarbudaya;//sizeof($getsiswa->getResult());
-        $datakebudayaan['jumlah_museum'] = $getmuseum;//sizeof($getsiswa->getResult());
+        $datakebudayaan['jumlah_cagarbudaya'] = sizeof($getcagarbudaya->getResult());
+        $datakebudayaan['jumlah_lembaga'] = sizeof($getlembaga->getResult());
+
+        $datakebudayaan['jumlah_museum']=0;
+        $datakebudayaan['jumlah_tamanbudaya']=0;
+        $datakebudayaan['jumlah_sanggar']=0;
+        $datakebudayaan['jumlah_asosiasi']=0;
+        $datakebudayaan['jumlah_lembagaadat']=0;
+        $datakebudayaan['jumlah_opk']=0;
+        $datakebudayaan['jumlah_padepokan']=0;
+        $datakebudayaan['jumlah_komunitas']=0;
+        $datakebudayaan['jumlah_dewan']=0;
+
+        // echo var_dump($getlembaga->getResult());
+
+        if ($getlembaga->getResult())
+        foreach ($getlembaga->getResult() as $row)
+        {
+            switch (trim($row->jenis_lk)) {
+                case "1":
+                    $datakebudayaan['jumlah_museum']++;
+                    break;
+                case "2":
+                    $datakebudayaan['jumlah_tamanbudaya']++;
+                    break;
+                case "3":
+                    $datakebudayaan['jumlah_sanggar']++;
+                    break;
+                case "4":
+                    $datakebudayaan['jumlah_asosiasi']++;
+                    break;
+                case "5":
+                    $datakebudayaan['jumlah_lembagaadat']++;
+                    break;
+                case "6":
+                    $datakebudayaan['jumlah_opk']++;
+                    break;
+                case "7":
+                    $datakebudayaan['jumlah_padepokan']++;
+                    break;
+                case "8":
+                    $datakebudayaan['jumlah_komunitas']++;
+                    break;
+                case "9":
+                    $datakebudayaan['jumlah_dewan']++;
+                    break;
+            } 
+        }
+
+       
         
-        $getsekolah = $this->datamodeljendela->getTotalSekolah($kodewilayah);
+        $getsekolah = $this->datamodeljendela->getTotalSekolah($kodewilayah, $tahunajaran);
+
+        //'Paket C','Akademik','Politeknik','Sekolah Tinggi','Institut','Universitas','Kursus'
 
         $bentukspaud = array('TK','KB','TPA','SPS','RA','Taman Seminari','SPK KB','PAUDQ','SPK PG','SPK TK','Pratama W P','Nava Dhammasekha');
         $bentukspendidikan = array('TK','KB','TPA','SPS','SD','SMP','SDLB','SMPLB','MI','MTs',
-        'Paket A','Paket B','SMA','SMLB','SMK','MA','MAK','Paket C','Akademik','Politeknik',
-        'Sekolah Tinggi','Institut','Universitas','Kursus','Keaksaraan','TBM','PKBM','Life Skill',
+        'Paket A','Paket B','SMA','SMLB','SMK','MA','MAK','Paket C','Keaksaraan','TBM','PKBM','Life Skill',
         'SLB','Satap TK SD','Satap SD SMP','Satap TK SD SMP','Satap SD SMP SMA','RA','SMP',
         'SMPTK','SMTK','SDTK','SMAg.K','SKB','Taman Seminari','TKLB','SPK KB','SMAK','PAUDQ',
         'SPK PG','SPK TK','SPK SD','SPK SMP','SPK SMA','Pondok Pesantren','Pratama W P','Adi W P',
@@ -159,7 +216,7 @@ class Home extends BaseController
        
         // $getsekolahbentuk_akreditasidikdas = $this->datamodeljendela->getTotalSekolahBentuk($kodewilayah,$bentuksdikdas,$fields_akreditasi);
         
-        $getsiswa = $this->datamodeljendela->getTotalSiswa($kodewilayah);
+        $getsiswa = $this->datamodeljendela->getTotalSiswa($kodewilayah, $tahunajaran);
 
         // echo var_dump($getsiswa);
 
@@ -252,7 +309,7 @@ class Home extends BaseController
         else if ($entitas=="pendidik")
         {
             $bawal=12;
-            $bakhir=17;
+            $bakhir=18;
         }
 
         $datanya = array();
@@ -274,8 +331,8 @@ class Home extends BaseController
         $judultabel[$urutan][1][6] = 'Belum Terakreditasi';
         $judultabel[$urutan][1][7] = 'Tidak Terakreditasi';
         $judultabel[$urutan][1][8] = 'Sertifikat Kadaluarsa';
-        // $judultabel[$urutan][1][9] = 'Residu';
-        $fields[$urutan][1] = array ('akreditasi_a','akreditasi_b','akreditasi_c','akreditasi_tidak_terakreditasi','akreditasi_belum_terakreditasi','akreditasi_terakreditasi','akreditasi_sertifikat_kadaluarsa');
+        $judultabel[$urutan][1][9] = 'Residu';
+        $fields[$urutan][1] = array ('akreditasi_a','akreditasi_b','akreditasi_c','akreditasi_tidak_terakreditasi','akreditasi_belum_terakreditasi','akreditasi_terakreditasi','akreditasi_sertifikat_kadaluarsa','akreditasi_residu');
         
         $urutan=2;
         $stokjudul[$urutan] = 'Ruang Kelas dan Lab';
@@ -395,11 +452,13 @@ class Home extends BaseController
         $judultabel[$urutan][3][4] = "Pompa";
         $judultabel[$urutan][3][5] = "Hujan";
         $judultabel[$urutan][3][6] = "Sumur Terlindungi";
-        $judultabel[$urutan][3][7] = "Mata Air Terlindungi";
-        $judultabel[$urutan][3][8] = "Sungai";
-        $judultabel[$urutan][3][9] = "Lainnya";
-        $judultabel[$urutan][3][10] = "Residu";
-        $fields[$urutan][3] = array ('sumber_air_kemasan','sumber_air_PAM','sumber_air_pompa','sumber_air_hujan','sumber_air_sumur_terlindungi','sumber_air_mata_air_terlindungi','sumber_air_sungai','sumber_air_lainnya','sumber_air_residu');
+        $judultabel[$urutan][3][7] = "Sumur Tidak Terlindungi";
+        $judultabel[$urutan][3][8] = "Mata Air Terlindungi";
+        $judultabel[$urutan][3][9] = "Mata Air Tidak Terlindungi";
+        $judultabel[$urutan][3][10] = "Sungai";
+        $judultabel[$urutan][3][11] = "Lainnya";
+        $judultabel[$urutan][3][12] = "Residu";
+        $fields[$urutan][3] = array ('sumber_air_kemasan','sumber_air_PAM','sumber_air_pompa','sumber_air_hujan','sumber_air_sumur_terlindungi','sumber_air_sumur_tidak_terlindungi','sumber_air_mata_air_terlindungi','sumber_air_mata_air_tidak_terlindungi','sumber_air_sungai','sumber_air_lainnya','sumber_air_residu');
 
         $adaresidu[$urutan][4] = "no";
         $judultabel[$urutan][4][0] = "KECUKUPAN AIR";
@@ -464,7 +523,7 @@ class Home extends BaseController
 
         $urutan=7;
         $stokjudul[$urutan] = 'Agama';
-        $adaresidu[$urutan][1] = "yes";
+        $adaresidu[$urutan][1] = "no";
         $judultabel[$urutan][1][0] = "AGAMA";
         $judultabel[$urutan][1][1] = "Agama";
         $judultabel[$urutan][1][2] = "Islam";
@@ -479,7 +538,7 @@ class Home extends BaseController
         
         $urutan=8;
         $stokjudul[$urutan] = 'Usia';
-        $adaresidu[$urutan][1] = "yes";
+        $adaresidu[$urutan][1] = "no";
         $judultabel[$urutan][1][0] = "USIA";
         $judultabel[$urutan][1][1] = "Rentang Usia";
         $judultabel[$urutan][1][2] = "< 4 tahun";
@@ -492,7 +551,7 @@ class Home extends BaseController
 
         $urutan=9;
         $stokjudul[$urutan] = 'Status';
-        $adaresidu[$urutan][1] = "yes";
+        $adaresidu[$urutan][1] = "no";
         $judultabel[$urutan][1][0] = "STATUS";
         $judultabel[$urutan][1][1] = "Status";
         $judultabel[$urutan][1][2] = "Negeri";
@@ -501,7 +560,7 @@ class Home extends BaseController
         
         $urutan=10;
         $stokjudul[$urutan] = 'Tingkat Pendidikan';
-        $adaresidu[$urutan][1] = "yes";
+        $adaresidu[$urutan][1] = "no";
         $judultabel[$urutan][1][0] = "Tingkat Pendidikan";
         $judultabel[$urutan][1][1] = "Tingkat";
         $judultabel[$urutan][1][2] = "Kelompok A";
@@ -522,7 +581,8 @@ class Home extends BaseController
         $judultabel[$urutan][1][17] = "Tingkat 11";
         $judultabel[$urutan][1][18] = "Tingkat 12";
         $judultabel[$urutan][1][19] = "Tingkat 13";
-        $fields[$urutan][1] = array ('tingkat_kelompok_a','tingkat_kelompok_b','tingkat_kb','tingkat_tpa','tingkat_sps','tingkat_1','tingkat_2','tingkat_3','tingkat_4','tingkat_5','tingkat_6','tingkat_7','tingkat_8','tingkat_9','tingkat_10','tingkat_11','tingkat_12','tingkat_13');
+        $judultabel[$urutan][1][20] = "Residu";
+        $fields[$urutan][1] = array ('tingkat_kelompok_a','tingkat_kelompok_b','tingkat_kb','tingkat_tpa','tingkat_sps','tingkat_1','tingkat_2','tingkat_3','tingkat_4','tingkat_5','tingkat_6','tingkat_7','tingkat_8','tingkat_9','tingkat_10','tingkat_11','tingkat_12','tingkat_13','tingkat_residu');
 
         $urutan=11;
         $stokjudul[$urutan] = 'Jenis Ketunaan';
@@ -535,7 +595,8 @@ class Home extends BaseController
         $judultabel[$urutan][1][5] = "Tunadaksa";
         $judultabel[$urutan][1][6] = "Autis";
         $judultabel[$urutan][1][7] = "Tunaganda";
-        $fields[$urutan][1] = array ('tunanetra','tunarungu','tunagrahita','tunadaksa','autis','tunaganda');
+        $judultabel[$urutan][1][8] = "Residu";
+        $fields[$urutan][1] = array ('tunanetra','tunarungu','tunagrahita','tunadaksa','autis','tunaganda', 'kebutuhan_khusus_residu');
 
         $urutan=12;
         $stokjudul[$urutan] = 'Jenis Kelamin';
@@ -545,7 +606,7 @@ class Home extends BaseController
         $judultabel[$urutan][1][2] = "Laki-laki";
         $judultabel[$urutan][1][3] = "Perempuan";
         $fields[$urutan][1] = array ('jenis_kelamin_laki_laki','jenis_kelamin_perempuan');
-        $judultabel[$urutan][2][0] = "JENIS KELAMIN TENAGA PENDIDIK";
+        $judultabel[$urutan][2][0] = "JENIS KELAMIN TENAGA KEPENDIDIKAN";
         $adaresidu[$urutan][2] = "no";
         $judultabel[$urutan][2][1] = "Jenis";
         $judultabel[$urutan][2][2] = "Laki-laki";
@@ -561,7 +622,7 @@ class Home extends BaseController
         $urutan=13;
         $stokjudul[$urutan] = 'Usia';
         $adaresidu[$urutan][1] = "no";
-        $judultabel[$urutan][1][0] = "USIA GURU";
+        $judultabel[$urutan][1][0] = "USIA PENDIDIK";
         $judultabel[$urutan][1][1] = "Rentang Usia";
         $judultabel[$urutan][1][2] = "< 31 tahun";
         $judultabel[$urutan][1][3] = "31 - 35 tahun";
@@ -572,7 +633,7 @@ class Home extends BaseController
         $judultabel[$urutan][1][8] = "> 55 tahun";
         $fields[$urutan][1] = array ('usia_guru_kurang_31','usia_guru_31_35','usia_guru_36_40','usia_guru_41_45','usia_guru_46_50','usia_guru_51_55','usia_guru_lebih_55');
 
-        $judultabel[$urutan][2][0] = "USIA TENAGA PENDIDIK";
+        $judultabel[$urutan][2][0] = "USIA TENAGA KEPENDIDIKAN";
         $adaresidu[$urutan][2] = "no";
         $judultabel[$urutan][2][1] = "Rentang Usia";
         $judultabel[$urutan][2][2] = "< 31 tahun";
@@ -599,23 +660,25 @@ class Home extends BaseController
         $urutan=14;
         $stokjudul[$urutan] = 'Status';
         $adaresidu[$urutan][1] = "no";
-        $judultabel[$urutan][1][0] = "STATUS GURU";
+        $judultabel[$urutan][1][0] = "STATUS PENDIDIK";
         $judultabel[$urutan][1][1] = "Status";
         $judultabel[$urutan][1][2] = "PNS";
         $judultabel[$urutan][1][3] = "Yayasan";
         $judultabel[$urutan][1][4] = "Honorer Daerah";
         $judultabel[$urutan][1][5] = "Bantu";
         $judultabel[$urutan][1][6] = "Tidak Tetap";
-        $fields[$urutan][1] = array ('guru_PNS','guru_yayasan','guru_honor_daerah','guru_bantu','guru_tidak_tetap');
+        $judultabel[$urutan][1][7] = "Residu";
+        $fields[$urutan][1] = array ('guru_PNS','guru_yayasan','guru_honor_daerah','guru_bantu','guru_tidak_tetap','guru_status_residu');
         $adaresidu[$urutan][2] = "no";
-        $judultabel[$urutan][2][0] = "STATUS TENAGA PENDIDIK";
+        $judultabel[$urutan][2][0] = "STATUS TENAGA KEPENDIDIKAN";
         $judultabel[$urutan][2][1] = "Status";
         $judultabel[$urutan][2][2] = "PNS";
         $judultabel[$urutan][2][3] = "Yayasan";
         $judultabel[$urutan][2][4] = "Honorer Daerah";
         $judultabel[$urutan][2][5] = "Bantu";
         $judultabel[$urutan][2][6] = "Tidak Tetap";
-        $fields[$urutan][2] = array ('tendik_PNS','tendik_yayasan','tendik_honor_daerah','tendik_bantu','tendik_tidak_tetap');
+        $judultabel[$urutan][2][7] = "Residu";
+        $fields[$urutan][2] = array ('tendik_PNS','tendik_yayasan','tendik_honor_daerah','tendik_bantu','tendik_tidak_tetap','tendik_status_residu');
         $adaresidu[$urutan][3] = "no";
         $judultabel[$urutan][3][0] = "STATUS KEPALA SEKOLAH";
         $judultabel[$urutan][3][1] = "Status";
@@ -624,63 +687,94 @@ class Home extends BaseController
         $judultabel[$urutan][3][4] = "Honorer Daerah";
         $judultabel[$urutan][3][5] = "Bantu";
         $judultabel[$urutan][3][6] = "Tidak Tetap";
-        $fields[$urutan][3] = array ('kepsek_PNS','kepsek_yayasan','kepsek_honor_daerah','kepsek_bantu','kepsek_tidak_tetap');
+        $judultabel[$urutan][3][7] = "Residu";
+        $fields[$urutan][3] = array ('kepsek_PNS','kepsek_yayasan','kepsek_honor_daerah','kepsek_bantu','kepsek_tidak_tetap','kepsek_status_residu');
 
         $urutan=15;
         $stokjudul[$urutan] = 'Golongan';
         $adaresidu[$urutan][1] = "no";
-        $judultabel[$urutan][1][0] = "GOLONGAN GURU";
+        $judultabel[$urutan][1][0] = "GOLONGAN PENDIDIK";
         $judultabel[$urutan][1][1] = "Golongan";
-        $judultabel[$urutan][1][2] = "Gol. 1";
-        $judultabel[$urutan][1][3] = "Gol. 2";
-        $judultabel[$urutan][1][4] = "Gol. 3";
-        $fields[$urutan][1] = array ('gol_1','gol_2','gol_3','gol_4');
+        $judultabel[$urutan][1][2] = "Gol. 1 (PNS)";
+        $judultabel[$urutan][1][3] = "Gol. 2 (PNS)";
+        $judultabel[$urutan][1][4] = "Gol. 3 (PNS)";
+        $judultabel[$urutan][1][5] = "Gol. 4 (PNS)";
+        $judultabel[$urutan][1][6] = "Non PNS";
+        $judultabel[$urutan][1][7] = "Residu";
+        $fields[$urutan][1] = array ('gol_1','gol_2','gol_3','gol_4','gol_non_pns','gol_residu');
         $adaresidu[$urutan][2] = "no";
-        $judultabel[$urutan][2][0] = "GOLONGAN TENAGA PENDIDIK";
+        $judultabel[$urutan][2][0] = "GOLONGAN TENAGA KEPENDIDIKAN";
         $judultabel[$urutan][2][1] = "Golongan";
-        $judultabel[$urutan][2][2] = "Gol. 1";
-        $judultabel[$urutan][2][3] = "Gol. 2";
-        $judultabel[$urutan][2][4] = "Gol. 3";
-        $fields[$urutan][2] = array ('gol_1','gol_2','gol_3','gol_4');
+        $judultabel[$urutan][2][2] = "Gol. 1 (PNS)";
+        $judultabel[$urutan][2][3] = "Gol. 2 (PNS)";
+        $judultabel[$urutan][2][4] = "Gol. 3 (PNS)";
+        $judultabel[$urutan][2][5] = "Gol. 4 (PNS)";
+        $judultabel[$urutan][2][6] = "Non PNS";
+        $judultabel[$urutan][2][7] = "Residu";
+        $fields[$urutan][2] = array ('gol_1','gol_2','gol_3','gol_4','gol_non_pns','gol_residu');
         $adaresidu[$urutan][3] = "no";
         $judultabel[$urutan][3][0] = "GOLONGAN KEPALA SEKOLAH";
         $judultabel[$urutan][3][1] = "Golongan";
-        $judultabel[$urutan][3][2] = "Gol. 1";
-        $judultabel[$urutan][3][3] = "Gol. 2";
-        $judultabel[$urutan][3][4] = "Gol. 3";
-        $fields[$urutan][3] = array ('gol_1','gol_2','gol_3','gol_4');
+        $judultabel[$urutan][3][2] = "Gol. 1 (PNS)";
+        $judultabel[$urutan][3][3] = "Gol. 2 (PNS)";
+        $judultabel[$urutan][3][4] = "Gol. 3 (PNS)";
+        $judultabel[$urutan][3][5] = "Gol. 4 (PNS)";
+        $judultabel[$urutan][3][6] = "Non PNS";
+        $judultabel[$urutan][3][7] = "Residu";
+        $fields[$urutan][3] = array ('gol_1','gol_2','gol_3','gol_4','gol_non_pns','gol_residu');
 
         $urutan=16;
-        $stokjudul[$urutan] = 'Ijazah dan Sertifikat';
+        $stokjudul[$urutan] = 'Ijazah';
         $adaresidu[$urutan][1] = "no";
-        $judultabel[$urutan][1][0] = "IJAZAH GURU";
+        $judultabel[$urutan][1][0] = "IJAZAH PENDIDIK";
         $judultabel[$urutan][1][1] = "Ijazah";
         $judultabel[$urutan][1][2] = "Ijazah kurang dari S1";
         $judultabel[$urutan][1][3] = "Ijazah S1 ke atas";
-        $judultabel[$urutan][1][2] = "Sudah Sertifikasi";
-        $judultabel[$urutan][1][3] = "Belum Sertifikasi";
-        $fields[$urutan][1] = array ('ijazah_kurang_dari_s1','ijazah_lebih_dari_s1','sudah_sertifikasi','belum_sertifikasi');
+        $judultabel[$urutan][1][4] = "Residu";
+        $fields[$urutan][1] = array ('ijazah_kurang_dari_s1','ijazah_lebih_dari_s1','ijazah_residu');
         $adaresidu[$urutan][2] = "no";
-        $judultabel[$urutan][2][0] = "IJAZAH TENAGA PENDIDIK";
+        $judultabel[$urutan][2][0] = "IJAZAH TENAGA KEPENDIDIKAN";
         $judultabel[$urutan][2][1] = "Ijazah";
         $judultabel[$urutan][2][2] = "Ijazah kurang dari S1";
         $judultabel[$urutan][2][3] = "Ijazah S1 ke atas";
-        $judultabel[$urutan][2][2] = "Sudah Sertifikasi";
-        $judultabel[$urutan][2][3] = "Belum Sertifikasi";
-        $fields[$urutan][2] = array ('ijazah_kurang_dari_s1','ijazah_lebih_dari_s1','sudah_sertifikasi','belum_sertifikasi');
+        $judultabel[$urutan][2][4] = "Residu";
+        $fields[$urutan][2] = array ('ijazah_kurang_dari_s1','ijazah_lebih_dari_s1','ijazah_residu');
         $adaresidu[$urutan][3] = "no";
         $judultabel[$urutan][3][0] = "IJAZAH KEPALA SEKOLAH";
         $judultabel[$urutan][3][1] = "Ijazah";
         $judultabel[$urutan][3][2] = "Ijazah kurang dari S1";
         $judultabel[$urutan][3][3] = "Ijazah S1 ke atas";
-        $judultabel[$urutan][3][2] = "Sudah Sertifikasi";
-        $judultabel[$urutan][3][3] = "Belum Sertifikasi";
-        $fields[$urutan][3] = array ('ijazah_kurang_dari_s1','ijazah_lebih_dari_s1','sudah_sertifikasi','belum_sertifikasi');
+        $judultabel[$urutan][3][4] = "Residu";
+        $fields[$urutan][3] = array ('ijazah_kurang_dari_s1','ijazah_lebih_dari_s1','ijazah_residu');
 
         $urutan=17;
+        $stokjudul[$urutan] = 'Sertifikasi';
+        $adaresidu[$urutan][1] = "no";
+        $judultabel[$urutan][1][0] = "SERTIFIKASI PENDIDIK";
+        $judultabel[$urutan][1][1] = "Sertifikasi";
+        $judultabel[$urutan][1][2] = "Sudah Sertifikasi";
+        $judultabel[$urutan][1][3] = "Belum Sertifikasi";
+        // $judultabel[$urutan][1][4] = "Residu";
+        $fields[$urutan][1] = array ('sudah_sertifikasi','belum_sertifikasi','sertifikasi_residu');
+        $adaresidu[$urutan][2] = "no";
+        $judultabel[$urutan][2][0] = "SERTIFIKASI TENAGA KEPENDIDIKAN";
+        $judultabel[$urutan][2][1] = "Sertifikasi";
+        $judultabel[$urutan][2][2] = "Sudah Sertifikasi";
+        $judultabel[$urutan][2][3] = "Belum Sertifikasi";
+        // $judultabel[$urutan][2][4] = "Residu";
+        $fields[$urutan][2] = array ('sudah_sertifikasi','belum_sertifikasi','sertifikasi_residu');
+        $adaresidu[$urutan][3] = "no";
+        $judultabel[$urutan][3][0] = "SERTIFIKASI KEPALA SEKOLAH";
+        $judultabel[$urutan][3][1] = "Sertifikasi";
+        $judultabel[$urutan][3][2] = "Sudah Sertifikasi";
+        $judultabel[$urutan][3][3] = "Belum Sertifikasi";
+        // $judultabel[$urutan][3][4] = "Residu";
+        $fields[$urutan][3] = array ('sudah_sertifikasi','belum_sertifikasi','sertifikasi_residu');
+
+        $urutan=18;
         $stokjudul[$urutan] = 'Masa Kerja';
         $adaresidu[$urutan][1] = "no";
-        $judultabel[$urutan][1][0] = "MASA KERJA GURU";
+        $judultabel[$urutan][1][0] = "MASA KERJA PENDIDIK";
         $judultabel[$urutan][1][1] = "Masa Kerja";
         $judultabel[$urutan][1][2] = "< 5 tahun";
         $judultabel[$urutan][1][3] = "5 - 9 tahun";
@@ -689,7 +783,7 @@ class Home extends BaseController
         $judultabel[$urutan][1][6] = "20 - 24 tahun";
         $judultabel[$urutan][1][7] = "> 24 tahun";
         $fields[$urutan][1] = array ('Guru_mk_kurang_5','Guru_mk_5_9','Guru_mk_10_14','Guru_mk_15_19','Guru_mk_20_24','Guru_mk_lebih_24');
-        $judultabel[$urutan][2][0] = "MASA KERJA TENAGA PENDIDIK";
+        $judultabel[$urutan][2][0] = "MASA KERJA TENAGA KEPENDIDIKAN";
         $adaresidu[$urutan][2] = "no";
         $judultabel[$urutan][2][1] = "Masa Kerja";
         $judultabel[$urutan][2][2] = "< 5 tahun";
@@ -713,10 +807,11 @@ class Home extends BaseController
         $paud = array('TK','KB','TPA','SPS','RA','Taman Seminari','SPK KB','PAUDQ','SPK PG','SPK TK','Pratama W P','Nava Dhammasekha');
         $dikdas = array('SD','SMP','MI','MTs','SMPTK','SDTK','SPK SD','SPK SMP','Adi W P','Madyama W P','Mula Dhammasekha','Muda Dhammasekha');
         $dikmen = array('SMA','SMK','MA','MAK','SLB','SMTK','SMAg.K','SMAK','SPK SMA','Utama W P','Uttama Dhammasekha','Uttama Dhammasekha Kejuruan');
-        $dikti = array('Akademik','Politeknik','Sekolah Tinggi','Institut','Universitas');
-        $dikmas = array('Kursus','TBM','PKBM','SKB','Pondok Pesantren');
+        // $dikti = array('Akademik','Politeknik','Sekolah Tinggi','Institut','Universitas');
+        $dikti = array('');
+        $dikmas = array('TBM','PKBM','SKB','Pondok Pesantren');
 
-        $dafjenjang = array('PAUD','DIKDAS','DIKMEN','DIKTI','DIKMAS');
+        $dafjenjang = array('PAUD','DIKDAS','DIKMEN','DIKMAS');
 
         $m=0;
         for ($a=$bawal;$a<=$bakhir;$a++)
@@ -754,9 +849,11 @@ class Home extends BaseController
 
         $jendraljenjang = $jendral;
 
+        $tahunajaran = $this->gettahunajar($entitas);
+
         if ($bentuks!="semua")
         {
-            $gettotaljenjang = $this->datamodeljendela->gettotaljenjang($bentuks,$kodewilayah);
+            $gettotaljenjang = $this->datamodeljendela->gettotaljenjang($bentuks,$kodewilayah,$tahunajaran);
             $gettotaljenjang = $gettotaljenjang->getRow();
             $totalsekolah = $gettotaljenjang->totalsekolah;
             $jendraljenjang = $totalsekolah;
@@ -829,14 +926,15 @@ class Home extends BaseController
                 if ($entitas=="kepsek" && $b2==2)
                     $entitas="tendik";
 
-                if ($bentuks=="semua")
-                {
-                    $getsekolahbentuk = $this->datamodeljendela->getTotalSekolahBentukAll($kodewilayah,$paud,$dikdas,$dikmen,$dikti,$dikmas,$fields[$b][$b2],$entitas);
-                }
-                else
-                {
-                    $getsekolahbentuk = $this->datamodeljendela->getTotalSekolahBentuk($kodewilayah,$bentuks,$fields[$b][$b2],$entitas);
-                }
+                    if ($bentuks=="semua")
+                    {
+                        $getsekolahbentuk = $this->datamodeljendela->getTotalSekolahBentukAll($kodewilayah,$paud,$dikdas,$dikmen,$dikti,$dikmas,$fields[$b][$b2],$entitas,$tahunajaran);
+                    }
+                    else
+                    {
+                        $getsekolahbentuk = $this->datamodeljendela->getTotalSekolahBentuk($kodewilayah,$bentuks,$fields[$b][$b2],$entitas,$tahunajaran);
+                    }
+                
                 
                 $totalbentukperbaris = [];
                 $totalbarispaud = [];
@@ -850,6 +948,9 @@ class Home extends BaseController
                 $totaljendralall = 0;
                 foreach ($fields[$b][$b2] as $field)
                 {
+                    if ($field=="nonpns")
+                    continue;
+
                     $ce++;
                     $totalbaris[$ce] = 0;
                     $totalbarispaud[$ce] = 0;
@@ -871,6 +972,9 @@ class Home extends BaseController
                             $nilaibaris = intval($getsekolahbentuk[$namakecil.'_'.$field]);
                             $totalbaris[$ce]=$totalbaris[$ce]+$nilaibaris;
                             $nilaibentukperbaris[$ce] = $nilaibentukperbaris[$ce] . "<td align=\"right\">" .number_format($nilaibaris,0,',','.') . "&nbsp;&nbsp;&nbsp;</td>";
+
+                            // 'kepsek_yayasan','kepsek_honor_daerah','kepsek_bantu','kepsek_tidak_tetap'
+                            // $nonpns[$ce] = intval($getsekolahbentuk[$namakecil.'_'.'kepsek_yayasan'])
                         }
                     }
                     else
@@ -935,6 +1039,7 @@ class Home extends BaseController
                 $baristabel = "";
                 for($c=2;$c<sizeof($judultabel[$b][$b2]);$c++)
                 {
+                   
                     if ($judultabel[$b][$b2][$c]=="Residu")
                     $judultabel[$b][$b2][$c]="<b>Residu</b>";
 
@@ -983,6 +1088,13 @@ class Home extends BaseController
                     <b>Total</b>
                 </td>'.$totaljendral.$totalperkolom.'</tr>';
 
+
+                /////// khusus untuk golongan nonPNS /////////////////////////////////
+
+                
+
+                //////////////////////////////////////////////////////////////////////
+
                 $namatabel="id=\"table".$idtabel."\"";
 
                 if ($bentuks == "semua")
@@ -1003,7 +1115,6 @@ class Home extends BaseController
                             <td style="text-align:right;"><b>PAUD</b></td>
                             <td style="text-align:right;"><b>DIKDAS</b></td>
                             <td style="text-align:right;"><b>DIKMEN</b></td>
-                            <td style="text-align:right;"><b>DIKTI</b></td>
                             <td style="text-align:right;"><b>DIKMAS</b></td>
                         </tr>
                     </thead>
@@ -1069,6 +1180,14 @@ class Home extends BaseController
         // $gettotaljenjang = $gettotaljenjang->getResult();
         // print_r($gettotaljenjang->getResult());
         //$jendraljenjang = $gettotaljenjang->totalsekolah;
+    }
+
+    public function gettahunajar($entitas=null)
+    {
+        if ($entitas==null)
+        $entitas = "sekolah";
+        $getsekolahbentuk = $this->datamodeljendela->gettahunajaran($entitas);
+        return $getsekolahbentuk;
     }
 
 }

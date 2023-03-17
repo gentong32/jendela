@@ -39,6 +39,7 @@ $routes->get('/', 'Home::index');
 $routes->get('/home/profil', 'Home::profil');
 $routes->post('/home/getAuto', 'Home::getAuto');
 $routes->get('/home/getAuto', 'Home::getAuto');
+$routes->get('/home/gettahunajar', 'Home::gettahunajar');
 
 /*
  * --------------------------------------------------------------------

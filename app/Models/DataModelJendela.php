@@ -129,8 +129,9 @@ class DataModelJendela extends Model
         return $query;
     }
 
-    public function getTotalSekolahBentuk($kodewilayah,$bentuks,$fields,$entitas)
+    public function getTotalSekolahBentuk($kodewilayah,$bentuks,$fields,$entitas,$tahunajaran)
     {
+
         // $bentuks = array('TK','KB','TPA','SPS','RA','Taman Seminari','SPK KB','PAUDQ','SPK PG','SPK TK','Pratama W P','Nava Dhammasekha');
         // $fields = array ('akreditasi_a','akreditasi_b','akreditasi_c','akreditasi_tidak_terakreditasi','akreditasi_belum_terakreditasi','akreditasi_terakreditasi');
         $thesum = "";
@@ -156,7 +157,7 @@ class DataModelJendela extends Model
         }
 
         $sql = "SELECT ".$thesum." max(kode_wilayah) as kode_wilayah  
-        from dataprocess.jendela.".$entitas." where semester_id='20221' AND kode_wilayah = :kodewilayah: ";
+        from dataprocess.jendela.".$entitas." where semester_id='$tahunajaran' AND kode_wilayah = :kodewilayah: ";
 
         // echo $sql;
 
@@ -168,7 +169,7 @@ class DataModelJendela extends Model
         return $query->getRowArray();
     }
 
-    public function getTotalSekolahBentukAll($kodewilayah,$paud,$dikdas,$dikmen,$dikti,$dikmas,$fields,$entitas)
+    public function getTotalSekolahBentukAll($kodewilayah,$paud,$dikdas,$dikmen,$dikti,$dikmas,$fields,$entitas,$tahunajaran)
     {
         $thesum="";
         foreach ($fields as $field)
@@ -233,7 +234,7 @@ class DataModelJendela extends Model
         }
 
         $sql = "SELECT ".$thesum." max(kode_wilayah) as kode_wilayah  
-        from dataprocess.jendela.".$entitas." where semester_id='20221' AND kode_wilayah = :kodewilayah: ";
+        from dataprocess.jendela.".$entitas." where semester_id='$tahunajaran' AND kode_wilayah = :kodewilayah: ";
 
         // echo $sql;
 
@@ -245,7 +246,8 @@ class DataModelJendela extends Model
         return $query->getRowArray();
     }
 
-    public function getTotalSekolah($kodewilayah)
+    
+    public function getTotalSekolah($kodewilayah, $tahunajaran)
     {
         $sql = "SELECT sum(akreditasi_a) as t_akreditasi_a,
         sum(akreditasi_b) as t_akreditasi_b, 
@@ -255,8 +257,7 @@ class DataModelJendela extends Model
         sum(akreditasi_terakreditasi) as t_terakreditasi,
         sum(akreditasi_sertifikat_kadaluarsa) as t_kadaluarsa,
         sum(akreditasi_residu) as t_akreditasi_residu,
-        sum (akreditasi_a+akreditasi_b+akreditasi_c+akreditasi_tidak_terakreditasi
-        +akreditasi_belum_terakreditasi+akreditasi_terakreditasi+akreditasi_sertifikat_kadaluarsa) as total_sekolah,
+        sum (sekolah_negeri+sekolah_swasta) as total_sekolah,
         sum([ruang_kelas_baik]) as kelas_baik,
         sum([ruang_kelas_rusak_ringan]) as kelas_r_ringan,
         sum([ruang_kelas_rusak_sedang]) as kelas_r_sedang,
@@ -354,23 +355,23 @@ class DataModelJendela extends Model
         sum([waktu_penyelenggaraan_residu]) as t_waktu_residu,
         sum([mbs_ya]) as t_mbs_ya,
         sum([mbs_tidak]) as t_mbs_tidak 
-        from dataprocess.jendela.sekolah where semester_id = '20221' AND kode_wilayah = :kodewilayah: ";
-
-        // where (bentuk_pendidikan = 'SPS' OR bentuk_pendidikan = 'TK' OR 
-        // bentuk_pendidikan = 'KB' OR bentuk_pendidikan = 'MA' OR
-        // bentuk_pendidikan = 'Nava Dhammasekha' OR bentuk_pendidikan = 'PKBM' OR
-        // bentuk_pendidikan = 'Pratama W P' OR bentuk_pendidikan = 'SD' OR
-        // bentuk_pendidikan = 'SDLB' OR bentuk_pendidikan = 'SDTK' OR
-        // bentuk_pendidikan = 'SKB' OR bentuk_pendidikan = 'SLB' OR
-        // bentuk_pendidikan = 'SMA' OR bentuk_pendidikan = 'SMAg.K' OR
-        // bentuk_pendidikan = 'SMAK' OR bentuk_pendidikan = 'SMK' OR
-        // bentuk_pendidikan = 'SMLB' OR bentuk_pendidikan = 'SMP' OR
-        // bentuk_pendidikan = 'SMPTK' OR bentuk_pendidikan = 'SMTK' OR
-        // bentuk_pendidikan = 'SPK KB' OR bentuk_pendidikan = 'SPK PG' OR
-        // bentuk_pendidikan = 'SPK SD' OR bentuk_pendidikan = 'SPK SMA' OR
-        // bentuk_pendidikan = 'SPK SMP' OR bentuk_pendidikan = 'SPK TK' OR
-        // bentuk_pendidikan = 'SPS' OR bentuk_pendidikan = 'TK' OR
-        // bentuk_pendidikan = 'TKLB' OR bentuk_pendidikan = 'TPA') 
+        from dataprocess.jendela.sekolah where semester_id = '$tahunajaran' AND kode_wilayah = :kodewilayah: AND (bentuk_pendidikan != 'Akademik' AND bentuk_pendidikan !='Politeknik' AND bentuk_pendidikan !='Sekolah Tinggi' AND bentuk_pendidikan !='Institut' AND bentuk_pendidikan != 'Universitas' AND bentuk_pendidikan !='Kursus')";
+        
+        // -- (bentuk_pendidikan = 'SPS' OR bentuk_pendidikan = 'TK' OR 
+        // -- bentuk_pendidikan = 'KB' OR bentuk_pendidikan = 'MA' OR
+        // -- bentuk_pendidikan = 'Nava Dhammasekha' OR bentuk_pendidikan = 'PKBM' OR
+        // -- bentuk_pendidikan = 'Pratama W P' OR bentuk_pendidikan = 'SD' OR
+        // -- bentuk_pendidikan = 'SDLB' OR bentuk_pendidikan = 'SDTK' OR
+        // -- bentuk_pendidikan = 'SKB' OR bentuk_pendidikan = 'SLB' OR
+        // -- bentuk_pendidikan = 'SMA' OR bentuk_pendidikan = 'SMAg.K' OR
+        // -- bentuk_pendidikan = 'SMAK' OR bentuk_pendidikan = 'SMK' OR
+        // -- bentuk_pendidikan = 'SMLB' OR bentuk_pendidikan = 'SMP' OR
+        // -- bentuk_pendidikan = 'SMPTK' OR bentuk_pendidikan = 'SMTK' OR
+        // -- bentuk_pendidikan = 'SPK KB' OR bentuk_pendidikan = 'SPK PG' OR
+        // -- bentuk_pendidikan = 'SPK SD' OR bentuk_pendidikan = 'SPK SMA' OR
+        // -- bentuk_pendidikan = 'SPK SMP' OR bentuk_pendidikan = 'SPK TK' OR
+        // -- bentuk_pendidikan = 'SPS' OR bentuk_pendidikan = 'TK' OR
+        // -- bentuk_pendidikan = 'TKLB' OR bentuk_pendidikan = 'TPA') 
 
         $query = $this->db->query($sql,[
             'kodewilayah' => $kodewilayah
@@ -379,7 +380,7 @@ class DataModelJendela extends Model
         return $query->getRow();
     }
 
-    public function getTotalSiswa($kodewilayah)
+    public function getTotalSiswa($kodewilayah, $tahunajaran)
     {
         $sql = "SELECT sum([jenis_kelamin_laki_laki]) as t_siswa_laki, 
         sum([jenis_kelamin_perempuan]) as t_siswa_perempuan, 
@@ -408,8 +409,7 @@ class DataModelJendela extends Model
         sum([autis]) as t_autis,
         sum([tunaganda] ) as t_tunaganda
         FROM [Dataprocess].[jendela].[siswa] 
-        where kode_wilayah = :kodewilayah:
-        group by kode_wilayah";
+        where kode_wilayah = :kodewilayah: AND semester_id = '$tahunajaran' AND (bentuk_pendidikan != 'Akademik' AND bentuk_pendidikan !='Politeknik' AND bentuk_pendidikan !='Sekolah Tinggi' AND bentuk_pendidikan !='Institut' AND bentuk_pendidikan != 'Universitas' AND bentuk_pendidikan !='Kursus')";
 
         $query = $this->db->query($sql,[
             'kodewilayah' => $kodewilayah
@@ -418,7 +418,7 @@ class DataModelJendela extends Model
         return $query->getRow();
     }
 
-    public function getTotalGuru($kodewilayah)
+    public function getTotalGuru($kodewilayah, $tahunajaran)
     {
         $sql = "select sum([jenis_kelamin_laki_laki]) as t_guru_laki, 
                 sum([jenis_kelamin_perempuan]) as t_guru_perempuan, 
@@ -437,7 +437,7 @@ class DataModelJendela extends Model
                 sum([belum_sertifikasi]) as t_sertifikasi_belum, 
                 sum([sudah_sertifikasi]+[belum_sertifikasi]) as total_sertifikasi
                 FROM [Dataprocess].[jendela].[pendidik] 
-                where kode_wilayah = :kodewilayah:";
+                where semester_id='$tahunajaran' AND kode_wilayah = :kodewilayah: AND (bentuk_pendidikan != 'Akademik' AND bentuk_pendidikan !='Politeknik' AND bentuk_pendidikan !='Sekolah Tinggi' AND bentuk_pendidikan !='Institut' AND bentuk_pendidikan != 'Universitas' AND bentuk_pendidikan !='Kursus')";
 
         $query = $this->db->query($sql,[
             'kodewilayah' => $kodewilayah
@@ -446,7 +446,7 @@ class DataModelJendela extends Model
         return $query->getRow();
     }
 
-    public function getTotalTendik($kodewilayah)
+    public function getTotalTendik($kodewilayah, $tahunajaran)
     {
         $sql = "select sum([jenis_kelamin_laki_laki]) as t_tendik_laki, 
                 sum([jenis_kelamin_perempuan]) as t_tendik_perempuan, 
@@ -465,7 +465,7 @@ class DataModelJendela extends Model
                 sum([belum_sertifikasi]) as t_sertifikasi_belum, 
                 sum([sudah_sertifikasi]+[belum_sertifikasi]) as total_sertifikasi 
                 FROM [Dataprocess].[jendela].[tendik] 
-                where kode_wilayah = :kodewilayah:";
+                where semester_id='$tahunajaran' AND kode_wilayah = :kodewilayah: AND (bentuk_pendidikan != 'Akademik' AND bentuk_pendidikan !='Politeknik' AND bentuk_pendidikan !='Sekolah Tinggi' AND bentuk_pendidikan !='Institut' AND bentuk_pendidikan != 'Universitas' AND bentuk_pendidikan !='Kursus')";
 
         $query = $this->db->query($sql,[
             'kodewilayah' => $kodewilayah
@@ -474,7 +474,7 @@ class DataModelJendela extends Model
         return $query->getRow();
     }
 
-    public function getTotalKepsek($kodewilayah)
+    public function getTotalKepsek($kodewilayah, $tahunajaran)
     {
         $sql = "select sum([jenis_kelamin_laki_laki]) as t_kepsek_laki, 
                 sum([jenis_kelamin_perempuan]) as t_kepsek_perempuan, 
@@ -493,7 +493,7 @@ class DataModelJendela extends Model
                 sum([belum_sertifikasi]) as t_sertifikasi_belum, 
                 sum([sudah_sertifikasi]+[belum_sertifikasi]) as total_sertifikasi 
                 FROM [Dataprocess].[jendela].[kepsek] 
-                where kode_wilayah = :kodewilayah:";
+                where semester_id='$tahunajaran' AND kode_wilayah = :kodewilayah: AND (bentuk_pendidikan != 'Akademik' AND bentuk_pendidikan !='Politeknik' AND bentuk_pendidikan !='Sekolah Tinggi' AND bentuk_pendidikan !='Institut' AND bentuk_pendidikan != 'Universitas' AND bentuk_pendidikan !='Kursus')";
 
         $query = $this->db->query($sql,[
             'kodewilayah' => $kodewilayah
@@ -715,7 +715,7 @@ class DataModelJendela extends Model
         return $query;
     }
 
-    public function gettotaljenjang($bentuks,$kodewilayah)
+    public function gettotaljenjang($bentuks,$kodewilayah,$tahunajaran)
     {
         $kumpulanin = "";
         foreach ($bentuks as $row)
@@ -726,7 +726,7 @@ class DataModelJendela extends Model
 
         $sql = "select sum(sekolah_negeri+sekolah_swasta) as totalsekolah 
         FROM [Dataprocess].[jendela].[sekolah]
-        where kode_wilayah = :kodewilayah: AND semester_id='20221' AND bentuk_pendidikan in (".$kumpulanin.")";
+        where kode_wilayah = :kodewilayah: AND semester_id='$tahunajaran' AND bentuk_pendidikan in (".$kumpulanin.")";
 
         $query = $this->db->query($sql, [
             'kodewilayah'  => $kodewilayah
@@ -734,4 +734,64 @@ class DataModelJendela extends Model
 
         return $query;
     }
+
+    public function gettahunajaran($entitas)
+    {
+        $bulanskr = date('m');
+        $tahunskr = date('Y');
+
+        if ($bulanskr>=7)
+            {
+                $semester = 1;
+            }
+        else
+            {
+                $semester = 2;
+                $tahunskr--;
+            }
+        
+        $tahunajaran = $tahunskr.$semester;
+        
+        $sql = "SELECT top 10 count('semester_id') as totalrow from dataprocess.jendela.".$entitas." where semester_id='$tahunajaran' AND mst_kode_wilayah='010000'";
+        
+        $query = $this->db->query($sql);
+        $result = $query->getRow();
+        if ($result->totalrow==0)
+        {
+            if ($semester==2)
+            $semester=1;
+            else
+            {
+                $semester=2;
+                $tahunskr--;
+            }
+            $tahunajaran = $tahunskr.$semester;
+        }
+        return $tahunajaran;
+    }
+
+    public function getCagarBudaya($kodewilayah) {
+
+        $sql = "SELECT * FROM [Kebudayaan].[dbo].cagar_budaya 
+        where LEFT(kode_wilayah,4) = :kode:";
+                
+        $query = $this->db->query($sql, [
+            'kode' => substr($kodewilayah,0,4),
+        ]);
+        
+        return $query;
+    }
+
+    public function getLembaga($kodewilayah) {
+
+        $sql = "SELECT * FROM [Kebudayaan].[dbo].lembaga_kebudayaan 
+        where LEFT(kode_wilayah,4) = :kode:";
+                
+        $query = $this->db->query($sql, [
+            'kode' => substr($kodewilayah,0,4),
+        ]);
+        
+        return $query;
+    }
+
 }

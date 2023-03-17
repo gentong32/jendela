@@ -2161,28 +2161,28 @@ foreach ($bentuks as $bentuk)
     var latlngs = [];
     var kodewilayah;
 
-    var map = L
-        .map('maps')
-        .setView({
-            lat: <?=$bujur?>, lon:<?=$lintang?>}, 10); L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 15,
-                attribution: '© OpenStreetMap'
-            }).addTo(map); $.getJSON("<?php echo base_url();?>/geojson/<?php echo $kodewilayah;?>.geojson",function(result){
-                L
-                    .geoJson(result, {
-                        onEachFeature: function (feature, peta) {
-                            var style = {
-                                color: "#273746",
-                                fillColor: "#ff8080",
-                                weight: 1,
-                                opacity: 0.9,
-                                fillOpacity: 0.4
-                            };
-                            peta.setStyle(style);
-                        }
-                    })
-                    .addTo(map);
-            }); 
+    // var map = L
+    //     .map('maps')
+    //     .setView({
+    //         lat: <?=$bujur?>, lon:<?=$lintang?>}, 10); L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //             maxZoom: 15,
+    //             attribution: '© OpenStreetMap'
+    //         }).addTo(map); $.getJSON("<?php echo base_url();?>/geojson/<?php echo $kodewilayah;?>.geojson",function(result){
+    //             L
+    //                 .geoJson(result, {
+    //                     onEachFeature: function (feature, peta) {
+    //                         var style = {
+    //                             color: "#273746",
+    //                             fillColor: "#ff8080",
+    //                             weight: 1,
+    //                             opacity: 0.9,
+    //                             fillOpacity: 0.4
+    //                         };
+    //                         peta.setStyle(style);
+    //                     }
+    //                 })
+    //                 .addTo(map);
+    //         }); 
             
     function gantikota() {
         var cleanString = kodewilayah;

@@ -34,6 +34,7 @@ foreach ($bentuks as $bentuk)
 
             <div class="inline vert-top" style="margin-right:50px;">
                 <h2 class="mb-0"><?=$datakabupaten['nama']?></h2>
+                <!-- <center><i><?="( Data Tahun ".substr($tahunajar,0,4)."/".substr($tahunajar,4,1)." )"?></i></center> -->
                 <div id="dkota" class="ckota">
                     <div class="inline">
                         Ganti Kota:
@@ -135,7 +136,7 @@ foreach ($bentuks as $bentuk)
                         <option value="1">PAUD</option>
                         <option value="2">DIKDAS</option>
                         <option value="3">DIKMEN</option>
-                        <option value="4">DIKTI</option>
+                        <!-- <option value="4">DIKTI</option> -->
                         <option value="5">DIKMAS</option>
                 </select>
             </div>
@@ -151,6 +152,45 @@ foreach ($bentuks as $bentuk)
             
             <div class="tab-content" id="nav-tabContent">
                 
+            </div>
+        </div>
+
+        <!-- //////////////////////////////////// -->
+        <div id="tampil_1_2" class="tabeldata" style="display:none">
+            <div style="margin-left:5px;border:solid 0.5px grey;max-width:320px;padding:5px;">
+                <table class="tabeltotal">
+                    <tr>
+                        <td width="210px">
+                            Total Cagar Budaya
+                        </td>
+                        <td>:
+                            <?=number_format($datakebudayaan['jumlah_cagarbudaya'],0,",",".");?></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Total Lembaga Kebudayaan
+                        </td>
+                        <td>:
+                            <?=number_format($datakebudayaan['jumlah_lembaga'],0,",",".");?></td>
+                    </tr>
+                </table>
+                <table class="tabeltotal">
+                    <tr>
+                        <td>
+                            <ul style="padding-bottom:0px;padding-left:20px;">
+                                <li>Museum (<?=number_format($datakebudayaan['jumlah_museum'],0,",",".");?>)</li>
+                                <li>Taman Budaya (<?=number_format($datakebudayaan['jumlah_tamanbudaya'],0,",",".");?>)</li>
+                                <li>Sanggar (<?=number_format($datakebudayaan['jumlah_sanggar'],0,",",".");?>)</li>
+                                <li>Asosiasi Profesi (<?=number_format($datakebudayaan['jumlah_asosiasi'],0,",",".");?>)</li>
+                                <li>Lembaga Adat (<?=number_format($datakebudayaan['jumlah_lembagaadat'],0,",",".");?>)</li>
+                                <li>Organisasi Penghayat Kepercayaan (<?=number_format($datakebudayaan['jumlah_opk'],0,",",".");?>)</li>
+                                <li>Padepokan (<?=number_format($datakebudayaan['jumlah_padepokan'],0,",",".");?>)</li>
+                                <li>Komunitas Budaya (<?=number_format($datakebudayaan['jumlah_komunitas'],0,",",".");?>)</li>
+                                <li>Dewan Kesenian (<?=number_format($datakebudayaan['jumlah_dewan'],0,",",".");?>)</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
 
@@ -265,20 +305,25 @@ foreach ($bentuks as $bentuk)
         sel.remove(0);
         if ($('#idata').val() == 1)
         {
+            $('#tampil_1_2').hide();
+            $('#idata2').show();
             $('#idata2')
             .empty()
             .append('<option selected="selected" value="0">-- Pilih --</option>')
-            .append('<option value="1">Sekolah</option>')
-            .append('<option value="2">Siswa</option>')
-            .append('<option value="3">Guru</option>');
+            .append('<option value="sekolah">Sekolah</option>')
+            .append('<option value="siswa">Siswa</option>')
+            .append('<option value="pendidik">Pendidik - Tendik - Kepsek</option>');
         }
         else if ($('#idata').val() == 2)
         {
-            $('#idata2')
-            .empty()
-            .append('<option selected="selected" value="0">-- Pilih --</option>')
-            .append('<option value="1">Cagar Budaya</option>')
-            .append('<option value="2">Museum</option>');
+            // $('#idata2')
+            // .empty()
+            // .append('<option selected="selected" value="0">-- Pilih --</option>')
+            // .append('<option value="cagar">Cagar Budaya</option>')
+            // .append('<option value="museum">Museum</option>');
+            $('#tampil_1_2').show();
+            $('#tampil_1_1').hide();
+            $('#idata2').hide();
         }
 		
 	}); 
@@ -295,6 +340,7 @@ foreach ($bentuks as $bentuk)
 
     function tampilkan(idjenjang,entitas)
     {
+        
         if (entitas=="sekolah")
         {
             piltotal = <?=$datasekolahan->total_sekolah?>;
@@ -329,37 +375,49 @@ foreach ($bentuks as $bentuk)
                             // { "visible": false, "targets": target2},
                             ]
                         };
-        $.ajax({
-                    url: "<?=site_url().'home/grabdata/'.$kodewilayah?>/"+idjenjang+"/"+entitas,
-                    type: 'get',
-                    dataType: "json",
-                    data: {
-                        total: piltotal
-                    },
-                    success: function (result) {
-                        // console.log(result.jmltabel); 
-                        // alert (result.jmltabel);
-                        // console.log(result.konten); 
-                        $('#nav-tab').html(result.nav);
-                        $('#nav-tabContent').html(result.konten);
-                        for (aa=1;aa<=result.jmltabel;aa++)
-                        {
-                            $('#table'+aa).DataTable(config);
-                        }
-                       
-                        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        if ($('#idata').val() == 1)
+        {
+
+            $.ajax({
+                        url: "<?=site_url().'home/grabdata/'.$kodewilayah?>/"+idjenjang+"/"+entitas,
+                        type: 'get',
+                        dataType: "json",
+                        data: {
+                            total: piltotal
+                        },
+                        success: function (result) {
+                            // console.log(result.jmltabel); 
+                            // alert (result.jmltabel);
+                            // console.log(result.konten); 
+                            $('#nav-tab').html(result.nav);
+                            $('#nav-tabContent').html(result.konten);
+                            for (aa=1;aa<=result.jmltabel;aa++)
+                            {
+                                $('#table'+aa).DataTable(config);
+                            }
+                           
+                            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                                $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+                            });
                             $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
-                        });
-                        $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+    
+                        },
+                        error: function (result)
+                        {
+                            alert ("Sedang dalam perbaikan!");
+                        }
+                    });
+                    $('#tampil_1_1').show();
+                    $('#tampil_1_2').hide();
+        }
+        else
+        {
+            // alert ("nahloh");
+            $('#tampil_1_2').show();
+            $('#tampil_1_1').hide();
+        }
 
-                    },
-                    error: function (result)
-                    {
-                        alert ("Masih dalam pengembangan");
-                    }
-                });
-
-        $('#tampil_1_1').show();
+        
 
         if ($('#idata').val()==1)
         $('#opsijenjang').show();
